@@ -76,8 +76,8 @@ REQUIREMENTS
 ------------
 This library requires the following:
 
-- PHP 5.4.0+|7.0+
-- guzzlehttp/guzzle 5.3.1+|6.0+
+- PHP 5.4.0+\|7.0+
+- guzzlehttp/guzzle 5.3.1+\|6.0+
 - Google Maps API key or credential
 
 ### API keys
