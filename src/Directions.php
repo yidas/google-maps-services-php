@@ -8,7 +8,9 @@ use yidas\googleMaps\Client;
 /**
  * Directions Service
  * 
- * @see https://developers.google.com/maps/documentation/directions/
+ * @author  Nick Tsai <myintaer@gmail.com>
+ * @since   1.0.0
+ * @see     https://developers.google.com/maps/documentation/directions/
  */
 class Directions extends Service
 {

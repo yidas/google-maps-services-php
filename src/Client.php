@@ -5,6 +5,12 @@ namespace yidas\googleMaps;
 use Exception;
 use GuzzleHttp\Client as HttpClient;
 
+/**
+ * Google Maps PHP Client
+ * 
+ * @author  Nick Tsai <myintaer@gmail.com>
+ * @version 1.0.0
+ */
 class Client
 {
     /**

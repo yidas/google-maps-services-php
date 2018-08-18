@@ -8,6 +8,8 @@ use yidas\googleMaps\Client;
 /**
  * Directions Service
  * 
+ * @author  Nick Tsai <myintaer@gmail.com>
+ * @since   1.0.0
  * @see https://developers.google.com/maps/documentation/elevation/
  */
 class Elevation extends Service
