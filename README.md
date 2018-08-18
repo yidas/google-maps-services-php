@@ -9,8 +9,10 @@
 PHP client library(SDK) for Google Maps API Web Services
 
 [![Latest Stable Version](https://poser.pugx.org/yidas/google-maps-services/v/stable?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
-[![Latest Unstable Version](https://poser.pugx.org/yidas/google-maps-services/v/unstable?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
 [![License](https://poser.pugx.org/yidas/google-maps-services/license?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
+[![Total Downloads](https://poser.pugx.org/yidas/google-maps-services/downloads?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
+[![Monthly Downloads](https://poser.pugx.org/yidas/google-maps-services/d/monthly?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
+
 
 OUTLINE
 -------
@@ -76,8 +78,8 @@ REQUIREMENTS
 ------------
 This library requires the following:
 
-- PHP 5.4.0+|7.0+
-- guzzlehttp/guzzle 5.3.1+|6.0+
+- PHP 5.4.0+\|7.0+
+- guzzlehttp/guzzle 5.3.1+\|6.0+
 - Google Maps API key or credential
 
 ### API keys
@@ -92,7 +94,7 @@ To get an API key:
  1. Visit https://developers.google.com/console and log in with
     a Google Account.
  2. Select one of your existing projects, or create a new project.
- 3. Enable the API(s) you want to use. The Python Client for Google Maps Services
+ 3. Enable the API(s) you want to use. The Client for Google Maps Services
     accesses the following APIs:
     * Directions API
     * Distance Matrix API
@@ -117,7 +119,7 @@ INSTALLATION
 
 Run Composer in your project:
 
-    composer require yidas/google-map-sdk
+    composer require yidas/google-maps-services
     
 Then you could call it after Composer is loaded depended on your PHP framework:
 
@@ -129,7 +131,7 @@ use yidas\googleMaps\Client;
 
 ---
 
-USGAE
+USAGE
 -----
 
 Before using any Google Maps Services, first you need to create a Client with configuration, then use the client to access Google Maps Services.
@@ -155,7 +157,7 @@ $gmaps = new \yidas\googleMaps\Client([
 
 #### Language
 
-You could set language for Client for all serivces:
+You could set language for Client for all services:
 
 ```php
 $gmaps = new \yidas\googleMaps\Client(['key'=>'Your API Key', 'language'=>'zh-TW']);
