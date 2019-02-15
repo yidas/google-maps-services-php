@@ -9,7 +9,6 @@
 PHP client library(SDK) for Google Maps API Web Services
 
 [![Latest Stable Version](https://poser.pugx.org/yidas/google-maps-services/v/stable?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
-[![Latest Unstable Version](https://poser.pugx.org/yidas/google-maps-services/v/unstable?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
 [![License](https://poser.pugx.org/yidas/google-maps-services/license?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
 
 OUTLINE
