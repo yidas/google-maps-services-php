@@ -116,7 +116,7 @@ INSTALLATION
 
 Run Composer in your project:
 
-    composer require yidas/google-map-sdk
+    composer require yidas/google-maps-services
     
 Then you could call it after Composer is loaded depended on your PHP framework:
 
