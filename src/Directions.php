@@ -22,7 +22,7 @@ class Directions extends Service
      * @param Client $client
      * @param string $origin 
      * @param string $destination 
-     * @param array Query parameters
+     * @param array $params
      * @return array Result
      */
     public static function directions(Client $client, $origin, $destination, $params=[])

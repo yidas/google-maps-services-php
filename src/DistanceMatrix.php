@@ -20,13 +20,21 @@ class DistanceMatrix extends Service
      * Distance matrix
      *
      * @param Client $client
-     * @param string $origin 
-     * @param string $destination 
-     * @param array Query parameters
+     * @param string|array $origins
+     * @param string|array $destinations
+     * @param array $params
      * @return array Result
      */
     public static function distanceMatrix(Client $client, $origins, $destinations, $params=[])
     {
+    	  if(is_array($origins)){
+    	  	$origins = implode("|",$origins);
+	      }
+
+    	  if(is_array($destinations)){
+    	  	$destinations = implode("|",$destinations);
+	      }
+
         $params['origins'] = (string) $origins;
         $params['destinations'] = (string) $destinations;
 
