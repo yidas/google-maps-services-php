@@ -94,7 +94,7 @@ To get an API key:
  1. Visit https://developers.google.com/console and log in with
     a Google Account.
  2. Select one of your existing projects, or create a new project.
- 3. Enable the API(s) you want to use. The Python Client for Google Maps Services
+ 3. Enable the API(s) you want to use. The Client for Google Maps Services
     accesses the following APIs:
     * Directions API
     * Distance Matrix API
@@ -131,7 +131,7 @@ use yidas\googleMaps\Client;
 
 ---
 
-USGAE
+USAGE
 -----
 
 Before using any Google Maps Services, first you need to create a Client with configuration, then use the client to access Google Maps Services.
@@ -157,7 +157,7 @@ $gmaps = new \yidas\googleMaps\Client([
 
 #### Language
 
-You could set language for Client for all serivces:
+You could set language for Client for all services:
 
 ```php
 $gmaps = new \yidas\googleMaps\Client(['key'=>'Your API Key', 'language'=>'zh-TW']);
