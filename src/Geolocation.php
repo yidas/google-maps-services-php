@@ -23,7 +23,7 @@ class Geolocation extends Service
      * Geolocate
      *
      * @param Client $client
-     * @param array Body parameters
+     * @param array $bodyParams
      * @return array Result
      */
     public static function geolocate(Client $client, $bodyParams=[])
