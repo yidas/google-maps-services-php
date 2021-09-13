@@ -10,6 +10,15 @@ use GuzzleHttp\Client as HttpClient;
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
  * @version 1.0.0
+ * 
+ * @method array directions(object $client, string $origin, string $destination, array $params=[]) 
+ * @method array distanceMatrix(object $client, string $origin, string $destination, array $params=[]) 
+ * @method array elevation(object $client, string $locations, array $params=[]) 
+ * @method array geocode(object $client, string $address, array $params=[]) 
+ * @method array reverseGeocode(object $client, string $latlng, array $params=[]) 
+ * @method array geocode(object $client, string $address, array $params=[]) 
+ * @method array geolocate(object $client, array $bodyParams=[]) 
+ * @method array timezone(object $client, string $location, string $timestamp=null array $params=[]) 
  */
 class Client
 {
