@@ -15,10 +15,10 @@ use GuzzleHttp\Client as HttpClient;
  * @method array distanceMatrix(string $origin, string $destination, array $params=[]) 
  * @method array elevation(string $locations, array $params=[]) 
  * @method array geocode(string $address, array $params=[]) 
- * @method array reverseGeocode(string $latlng, array $params=[]) 
+ * @method array reverseGeocode(array|string $latlng, array $params=[])
  * @method array geocode(string $address, array $params=[]) 
  * @method array geolocate(array $bodyParams=[]) 
- * @method array timezone(string $location, string $timestamp=null array $params=[]) 
+ * @method array timezone(string $location, string $timestamp=null, array $params=[])
  */
 class Client
 {
