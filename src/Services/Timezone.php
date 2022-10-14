@@ -1,31 +1,27 @@
 <?php
 
-namespace yidas\googleMaps;
-
-use yidas\googleMaps\Service;
-use yidas\googleMaps\Client;
+namespace yidas\GoogleMaps\Services;
 
 /**
- * Directions Service
+ * Timezone Service
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
  * @since   1.0.0
  * @see https://developers.google.com/maps/documentation/timezone/
  */
-class Timezone extends Service
+class Timezone extends AbstractService
 {
     const API_PATH = '/maps/api/timezone/json';
 
     /**
      * Timezone
      *
-     * @param Client $client
-     * @param string $location 
+     * @param string|array<string> $location
      * @param string $timestamp
-     * @param array Query parameters
-     * @return array Result
+     * @param array<string, string|int|float> $params Query parameters
+     * @return array<mixed> Result
      */
-    public static function timezone(Client $client, $location, $timestamp=null, $params=[])
+    public function timezone($location, $timestamp=null, $params=[])
     {
         // `location` seems to only allow `lat,lng` pattern
         if (is_string($location)) {
@@ -41,6 +37,11 @@ class Timezone extends Service
         // Timestamp
         $params['timestamp'] = ($timestamp) ?: time();
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return $this->requestHandler($this->getPath(), $params);
+    }
+
+    public function getPath(): string
+    {
+        return self::API_PATH;
     }
 }

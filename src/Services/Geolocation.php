@@ -1,9 +1,6 @@
 <?php
 
-namespace yidas\googleMaps;
-
-use yidas\googleMaps\Service;
-use yidas\googleMaps\Client;
+namespace yidas\GoogleMaps\Services;
 
 /**
  * Directions Service
@@ -12,7 +9,7 @@ use yidas\googleMaps\Client;
  * @since   1.0.0
  * @see https://developers.google.com/maps/documentation/geolocation/
  */
-class Geolocation extends Service
+class Geolocation extends AbstractService
 {
     /**
      * Replace all
@@ -22,15 +19,14 @@ class Geolocation extends Service
     /**
      * Geolocate
      *
-     * @param Client $client
      * @param array Body parameters
-     * @return array Result
+     * @return array<mixed> Result
      */
-    public static function geolocate(Client $client, $bodyParams=[])
+    public function geolocate($bodyParams=[])
     {
         // Google API request body format
         $body = json_encode($bodyParams);
         
-        return self::requestHandler($client, self::API_PATH, [], 'POST', $body);
+        return $this->requestHandler(self::API_PATH, [], 'POST', $body);
     }
 }

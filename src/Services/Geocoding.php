@@ -1,9 +1,6 @@
 <?php
 
-namespace yidas\googleMaps;
-
-use yidas\googleMaps\Service;
-use yidas\googleMaps\Client;
+namespace yidas\GoogleMaps\Services;
 
 /**
  * Geocoding Service
@@ -12,35 +9,34 @@ use yidas\googleMaps\Client;
  * @since   1.0.0
  * @see https://developers.google.com/maps/documentation/geocoding/
  */
-class Geocoding extends Service
+class Geocoding extends AbstractService
 {
     const API_PATH = '/maps/api/geocode/json';
 
     /**
      * Reverse Geocode
      *
-     * @param Client $client
      * @param string $address
-     * @param array Query parameters
-     * @return array Result
+     * @param array<string, string|int|float> $params Query parameters
+     * @return array<mixed> Result
      */
-    public static function geocode(Client $client, $address=null, $params=[])
+    public function geocode($address=null, $params=[])
     {
-        if (is_string($address)) 
+        if (is_string($address)) {
             $params['address'] = $address;
+        }
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return $this->requestHandler(self::API_PATH, $params);
     }
 
     /**
      * Reverse Geocode
      *
-     * @param Client $client
-     * @param array|string $latlng ['lat', 'lng'] or place_id string
-     * @param array Query parameters
-     * @return array Result
+     * @param array<string|float>|string $latlng ['lat', 'lng'] or place_id string
+     * @param array<string, string|int|float> $params Query parameters
+     * @return array<mixed> Result
      */
-    public static function reverseGeocode(Client $client, $latlng, $params=[])
+    public function reverseGeocode($latlng, $params=[])
     {
         // Check if latlng param is a place_id string.
         // place_id strings do not contain commas; latlng strings do.
@@ -54,6 +50,6 @@ class Geocoding extends Service
             $params['latlng'] = "{$lat},{$lng}";
         }
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return $this->requestHandler(self::API_PATH, $params);
     }
 }

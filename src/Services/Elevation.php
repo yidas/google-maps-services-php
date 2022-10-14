@@ -1,9 +1,6 @@
 <?php
 
-namespace yidas\googleMaps;
-
-use yidas\googleMaps\Service;
-use yidas\googleMaps\Client;
+namespace yidas\GoogleMaps\Services;
 
 /**
  * Directions Service
@@ -12,19 +9,18 @@ use yidas\googleMaps\Client;
  * @since   1.0.0
  * @see https://developers.google.com/maps/documentation/elevation/
  */
-class Elevation extends Service
+class Elevation extends AbstractService
 {
     const API_PATH = '/maps/api/elevation/json';
 
     /**
      * Elevation
      *
-     * @param Client $client
-     * @param string $locations 
-     * @param array Query parameters
-     * @return array Result
+     * @param string $locations
+     * @param array<string, string|int|float> $params Query parameters
+     * @return array<mixed> Result
      */
-    public static function elevation(Client $client, $locations, $params=[])
+    public function elevation($locations, $params=[])
     {
         // `locations` seems to only allow `lat,lng` pattern
         if (is_string($locations)) {
@@ -37,6 +33,6 @@ class Elevation extends Service
             $params['locations'] = "{$lat},{$lng}";
         }
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return $this->requestHandler(self::API_PATH, $params);
     }
 }

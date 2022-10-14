@@ -1,0 +1,17 @@
+parameters:
+	level: 9
+	paths:
+		- 'src'
+	scanFiles:
+		- 'tests/CommonTestClass.php'
+	excludePaths:
+		- 'tests/_autoload.php'
+		- 'tests/_bootstrap.php'
+#		- 'tests/CommonTestClass.php'
+	bootstrapFiles:
+		- 'tests/_autoload.php'
+	ignoreErrors:
+		# quality WTF - already covered in that "exists" check
+#		-
+#			message: '#expects GdImage\|resource, GdImage\|resource\|null given.#'
+#			path: 'php-src/Graphics/Processor.php'
