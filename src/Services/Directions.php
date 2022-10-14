@@ -11,7 +11,11 @@ namespace yidas\GoogleMaps\Services;
  */
 class Directions extends AbstractService
 {
-    const API_PATH = '/maps/api/directions/json';
+
+    public function getPath(): string
+    {
+        return '/maps/api/directions/json';
+    }
 
     /**
      * Directions
@@ -19,13 +23,13 @@ class Directions extends AbstractService
      * @param string $origin
      * @param string $destination
      * @param array<string, string|int|float> $params Query parameters
-     * @return array<mixed> Result
+     * @return array<string, string|int|float>
      */
     public function directions($origin, $destination, $params = [])
     {
         $params['origin'] = (string) $origin;
         $params['destination'] = (string) $destination;
 
-        return $this->requestHandler(self::API_PATH, $params);
+        return $params;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace yidas\GoogleMaps\Services;
 
+use LogicException;
+
 /**
  * Directions Service
  * 
@@ -11,14 +13,19 @@ namespace yidas\GoogleMaps\Services;
  */
 class Elevation extends AbstractService
 {
-    const API_PATH = '/maps/api/elevation/json';
+
+    public function getPath(): string
+    {
+        return '/maps/api/elevation/json';
+    }
 
     /**
      * Elevation
      *
-     * @param string $locations
+     * @param string|array<string|int, float> $locations
      * @param array<string, string|int|float> $params Query parameters
-     * @return array<mixed> Result
+     * @throws LogicException
+     * @return array<string, string|int|float>
      */
     public function elevation($locations, $params=[])
     {
@@ -27,12 +34,20 @@ class Elevation extends AbstractService
             
             $params['locations'] = $locations;
 
+        } elseif (isset($locations['lat']) && isset($locations['lng'])) {
+
+            $params['locations'] = sprintf('%1.08F,%1.08F', $locations['lat'], $locations['lng']);
+
+        } elseif (isset($locations[0]) && isset($locations[1])) {
+
+            $params['locations'] = sprintf('%1.08d,%1.08d', $locations[0], $locations[1]);
+
         } else {
 
-            list($lat, $lng) = $locations;
-            $params['locations'] = "{$lat},{$lng}";
+            throw new LogicException('Passed invalid values into coordinates! You must use either preformatted string or array with lat and lng or 0 and 1 keys.');
+
         }
 
-        return $this->requestHandler(self::API_PATH, $params);
+        return $params;
     }
 }

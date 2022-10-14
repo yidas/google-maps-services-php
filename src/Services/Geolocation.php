@@ -2,6 +2,8 @@
 
 namespace yidas\GoogleMaps\Services;
 
+use LogicException;
+
 /**
  * Directions Service
  * 
@@ -12,21 +14,40 @@ namespace yidas\GoogleMaps\Services;
 class Geolocation extends AbstractService
 {
     /**
-     * Replace all
+     * @var string|null body of the message
      */
-    const API_PATH = 'https://www.googleapis.com/geolocation/v1/geolocate';
+    protected $body;
+
+    public function getPath(): string
+    {
+        return 'https://www.googleapis.com/geolocation/v1/geolocate';
+    }
+
+    public function getMethod(): string
+    {
+        return 'POST';
+    }
+
+    public function getBody(): ?string
+    {
+        return $this->body;
+    }
 
     /**
      * Geolocate
      *
-     * @param array Body parameters
-     * @return array<mixed> Result
+     * @param array<mixed> $bodyParams Body parameters
+     * @throws LogicException
+     * @return array<string, string|int|float>
      */
     public function geolocate($bodyParams=[])
     {
         // Google API request body format
         $body = json_encode($bodyParams);
-        
-        return $this->requestHandler(self::API_PATH, [], 'POST', $body);
+        if (false === $body) {
+            throw new LogicException(json_last_error_msg());
+        }
+        $this->body = $body;
+        return [];
     }
 }

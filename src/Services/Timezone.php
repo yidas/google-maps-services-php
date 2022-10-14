@@ -11,7 +11,10 @@ namespace yidas\GoogleMaps\Services;
  */
 class Timezone extends AbstractService
 {
-    const API_PATH = '/maps/api/timezone/json';
+    public function getPath(): string
+    {
+        return '/maps/api/timezone/json';
+    }
 
     /**
      * Timezone
@@ -19,9 +22,9 @@ class Timezone extends AbstractService
      * @param string|array<string> $location
      * @param string $timestamp
      * @param array<string, string|int|float> $params Query parameters
-     * @return array<mixed> Result
+     * @return array<string, string|int|float>
      */
-    public function timezone($location, $timestamp=null, $params=[])
+    public function timezone($location, $timestamp=null, $params=[]): array
     {
         // `location` seems to only allow `lat,lng` pattern
         if (is_string($location)) {
@@ -37,11 +40,6 @@ class Timezone extends AbstractService
         // Timestamp
         $params['timestamp'] = ($timestamp) ?: time();
 
-        return $this->requestHandler($this->getPath(), $params);
-    }
-
-    public function getPath(): string
-    {
-        return self::API_PATH;
+        return $params;
     }
 }

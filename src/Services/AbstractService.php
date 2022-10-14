@@ -2,8 +2,6 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use yidas\GoogleMaps\Clients\AbstractClient;
-
 /**
  * Google Maps Abstract Service
  *
@@ -12,40 +10,31 @@ use yidas\GoogleMaps\Clients\AbstractClient;
  */
 abstract class AbstractService
 {
-    /**
-     * Client to send requests
-     * @var AbstractClient
-     */
-    protected $client = null;
 
-    public function __construct(AbstractClient $client)
+    /**
+     * Return path to query endpoint
+     *
+     * @return string
+     */
+    abstract public function getPath(): string;
+
+    /**
+     * Return method which will be used in query
+     *
+     * @return string
+     */
+    public function getMethod(): string
     {
-        $this->client = $client;
+        return 'GET';
     }
 
     /**
-     * Request Handler
+     * Return prepared body if there is any
      *
-     * @param string $apiPath
-     * @param array<string|int|float> $params
-     * @param string $method HTTP request method
-     * @param string $body HTTP body to amend
-     * @return array|mixed Formatted result
+     * @return string
      */
-    protected function requestHandler(string $apiPath, array $params, string $method = 'GET', ?string $body = null)
+    public function getBody(): ?string
     {
-        $response = $this->client->request($apiPath, $params, $method, $body);
-        $result = json_decode($response->getMessageBody(), true);
-
-        // Error Handler
-        if (200 != $response->getStatusCode()) {
-            return $result;
-        } elseif (isset($result['error_message'])) {
-            // Error message Checker (200 situation form Google Maps API)
-            return $result;
-        }
-
-        // `results` parsing from Google Maps API, while pass parsing on error
-        return isset($result['results']) ? $result['results'] : $result;
+        return null;
     }
 }

@@ -11,7 +11,11 @@ namespace yidas\GoogleMaps\Services;
  */
 class DistanceMatrix extends AbstractService
 {
-    const API_PATH = '/maps/api/distancematrix/json';
+
+    public function getPath(): string
+    {
+        return '/maps/api/distancematrix/json';
+    }
 
     /**
      * Distance matrix
@@ -19,13 +23,13 @@ class DistanceMatrix extends AbstractService
      * @param string $origins
      * @param string $destinations
      * @param array<string, string|int|float> $params Query parameters
-     * @return array<mixed> Result
+     * @return array<string, string|int|float>
      */
     public function distanceMatrix($origins, $destinations, $params=[])
     {
         $params['origins'] = (string) $origins;
         $params['destinations'] = (string) $destinations;
 
-        return $this->requestHandler(self::API_PATH, $params);
+        return $params;
     }
 }

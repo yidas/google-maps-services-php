@@ -30,10 +30,7 @@ class GuzzleClient extends AbstractClient
     /**
      * Constructor
      *
-     * @param string|array<string, string> $optParams API Key or option parameters
-     *  'key' => Google API Key
-     *  'clientID' => Google clientID
-     *  'clientSecret' => Google clientSecret
+     * @param ApiAuth $auth Google Api class to get auth params
      * @throws Exception
      */
     public function __construct(ApiAuth $auth)

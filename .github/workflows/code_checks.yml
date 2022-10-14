@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ '7.4', '8.1' ]
+        php: [ '8.1' ]
     name: PHP ${{ matrix.php }} phpstan
     steps:
       - uses: actions/checkout@v2
@@ -52,4 +52,4 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: none
       - run: composer install --no-progress
-      - run: vendor/bin/phpstan analyse -c phpstan.${{ matrix.php }}.neon
+      - run: vendor/bin/phpstan analyse -c phpstan.neon

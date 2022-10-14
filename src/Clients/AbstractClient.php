@@ -13,7 +13,7 @@ abstract class AbstractClient
     /**
      * Google Maps default language
      *
-     * @var string ex. 'zh-TW'
+     * @var string|null ex. 'zh-TW'
      */
     protected $language;
 

@@ -5,7 +5,7 @@ namespace yidas\GoogleMaps\Clients;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Google Maps Abstract Service
+ * Google Maps Abstract Service - response in processable format
  *
  * @author  Petr Plsek <me@kalanys.com>
  * @version 2.0.0

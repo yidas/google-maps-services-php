@@ -13,18 +13,21 @@ use LogicException;
  */
 class Nearby extends AbstractService
 {
-    const API_PATH = '/maps/api/place/nearbysearch/json';
+    public function getPath(): string
+    {
+        return '/maps/api/place/nearbysearch/json';
+    }
 
     /**
      * Nearby lookup
      *
      * @param string $keyword
-     * @param array<string, float> $latlng ['lat', 'lng']
+     * @param array<string|int, float> $latlng ['lat', 'lng']
      * @param float|null $radius
      * @param string|null $type as wanted by Google
      * @param array<string, string|int|float> $params Query parameters
      * @throws LogicException
-     * @return array<mixed> Result
+     * @return array<string, string|int|float>
      */
     public function nearby(string $keyword, array $latlng = [], ?float $radius = null, ?string $type = null, $params=[])
     {
@@ -39,8 +42,20 @@ class Nearby extends AbstractService
 
         // `location` seems to only allow `lat,lng` pattern
         if (!empty($latlng)) {
-            list($lat, $lng) = $latlng;
-            $params['latlng'] = "{$lat},{$lng}";
+
+            if (isset($latlng['lat']) && isset($latlng['lng'])) {
+
+                $params['latlng'] = sprintf('%1.08F,%1.08F', $latlng['lat'], $latlng['lng']);
+
+            } elseif (isset($latlng[0]) && isset($latlng[1])) {
+
+                $params['latlng'] = sprintf('%1.08d,%1.08d', $latlng[0], $latlng[1]);
+
+            } else {
+
+                throw new LogicException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
+
+            }
         }
 
         if (!empty($radius)) {
@@ -51,6 +66,6 @@ class Nearby extends AbstractService
             $params['type'] = $type;
         }
 
-        return $this->requestHandler(self::API_PATH, $params);
+        return $params;
     }
 }

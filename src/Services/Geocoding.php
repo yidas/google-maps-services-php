@@ -2,6 +2,8 @@
 
 namespace yidas\GoogleMaps\Services;
 
+use LogicException;
+
 /**
  * Geocoding Service
  * 
@@ -11,14 +13,18 @@ namespace yidas\GoogleMaps\Services;
  */
 class Geocoding extends AbstractService
 {
-    const API_PATH = '/maps/api/geocode/json';
+
+    public function getPath(): string
+    {
+        return '/maps/api/geocode/json';
+    }
 
     /**
      * Reverse Geocode
      *
      * @param string $address
      * @param array<string, string|int|float> $params Query parameters
-     * @return array<mixed> Result
+     * @return array<string, string|int|float>
      */
     public function geocode($address=null, $params=[])
     {
@@ -26,7 +32,7 @@ class Geocoding extends AbstractService
             $params['address'] = $address;
         }
 
-        return $this->requestHandler(self::API_PATH, $params);
+        return $params;
     }
 
     /**
@@ -34,7 +40,7 @@ class Geocoding extends AbstractService
      *
      * @param array<string|float>|string $latlng ['lat', 'lng'] or place_id string
      * @param array<string, string|int|float> $params Query parameters
-     * @return array<mixed> Result
+     * @return array<string, string|int|float>
      */
     public function reverseGeocode($latlng, $params=[])
     {
@@ -44,12 +50,20 @@ class Geocoding extends AbstractService
             
             $params['place_id'] = $latlng;
 
+        } elseif (isset($latlng['lat']) && isset($latlng['lng'])) {
+
+            $params['latlng'] = sprintf('%1.08F,%1.08F', $latlng['lat'], $latlng['lng']);
+
+        } elseif (isset($latlng[0]) && isset($latlng[1])) {
+
+            $params['latlng'] = sprintf('%1.08d,%1.08d', $latlng[0], $latlng[1]);
+
         } else {
 
-            list($lat, $lng) = $latlng;
-            $params['latlng'] = "{$lat},{$lng}";
+            throw new LogicException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
+
         }
 
-        return $this->requestHandler(self::API_PATH, $params);
+        return $params;
     }
 }
