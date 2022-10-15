@@ -32,6 +32,7 @@ OUTLINE
     - [Geocoding API](#geocoding-api)
     - [Geolocation API](#geolocation-api)
     - [Time Zone API](#time-zone-api)
+    - [Nearby API](#nearby-api)
 
 ---
 
@@ -69,6 +70,7 @@ The PHP Client for Google Maps Services is a PHP Client library for the followin
  - [Geocoding API]
  - [Geolocation API]
  - [Time Zone API]
+ - [Nearby API]
  - [Roads API] (Required)
  - [Places API] (Required)
 
@@ -104,6 +106,7 @@ To get an API key:
     * Places API
     * Roads API
     * Time Zone API
+    * Nearby API
  4. Create a new **Server key**.
  5. If you'd like to restrict requests to a specific IP address, do so now.
 
@@ -221,8 +224,15 @@ $geolocateResult = $gmaps->geolocate([]);
 ### Time Zone API
 
 ```php
-// requests the time zone data for giving location
+// requests the time zone data for given location
 $timezoneResult = $gmaps->timezone([25.0339639, 121.5644722]);
+```
+
+### Nearby API
+
+```php
+// requests the nearby points for given location
+$nearbyResult = $gmaps->nearby('restaurant', [25.0339639, 121.5644722]);
 ```
 
 
@@ -235,6 +245,7 @@ $timezoneResult = $gmaps->timezone([25.0339639, 121.5644722]);
 [Elevation API]: https://developers.google.com/maps/documentation/elevation/
 [Geocoding API]: https://developers.google.com/maps/documentation/geocoding/
 [Geolocation API]: https://developers.google.com/maps/documentation/geolocation/
+[Nearby API]: https://developers.google.com/maps/documentation/places/web-service/search-nearby/
 [Time Zone API]: https://developers.google.com/maps/documentation/timezone/
 [Roads API]: https://developers.google.com/maps/documentation/roads/
 [Places API]: https://developers.google.com/places/

@@ -10,12 +10,19 @@
         "source": "https://github.com/yidas/google-maps-services-php"
     },
     "require": {
-        "php": ">=5.4",
+        "ext-json": "*",
+        "php": ">=7.4",
         "guzzlehttp/guzzle": "~6.5.6|^7.4.3"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpunit/phpunit": ">=7.2"
     },
     "autoload": {
         "psr-4": {
-            "yidas\\googleMaps\\": "src/"
+            "yidas\\GoogleMaps\\": "src/"
         }
     }
 }

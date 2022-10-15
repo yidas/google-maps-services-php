@@ -1,0 +1,55 @@
+name: Code_Checks
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '7.4', '8.0', '8.1' ]
+    name: PHP ${{ matrix.php }} tests
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - run: composer install --no-progress
+      - run: vendor/bin/phpunit
+
+  code_style:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.1' ]
+    name: PHP ${{ matrix.php }} code style
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - run: composer install --no-progress
+      - run: PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --format=txt --verbose --diff --allow-risky=yes --config=.php-cs-fixer.php
+
+  phpstan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.1' ]
+    name: PHP ${{ matrix.php }} phpstan
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - run: composer install --no-progress
+      - run: vendor/bin/phpstan analyse -c phpstan.neon

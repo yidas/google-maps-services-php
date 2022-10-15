@@ -1,0 +1,20 @@
+parameters:
+	level: 9
+	paths:
+		- 'src'
+	scanFiles:
+		- 'tests/CommonTestClass.php'
+	excludePaths:
+		- 'tests/_autoload.php'
+		- 'tests/_bootstrap.php'
+#		- 'tests/CommonTestClass.php'
+	bootstrapFiles:
+		- 'tests/_autoload.php'
+	ignoreErrors:
+		# quality WTF - usual problems with phpstan
+		-
+			message: '#Parameter \#1 \$callback of function call_user_func_array expects callable#'
+			path: 'src/Services.php'
+		-
+			message: '#Parameter \#2 \$params of method yidas\\GoogleMaps\\Clients\\AbstractClient\:\:request\(\) expects array#'
+			path: 'src/Services.php'
