@@ -37,4 +37,15 @@ abstract class AbstractService
     {
         return null;
     }
+
+    /**
+     * If too parse inner response body for 'results' node
+     * Usually necessary to discard that behavior if you want to get 'status' node
+     *
+     * @return bool
+     */
+    public function wantInnerResult(): bool
+    {
+        return true;
+    }
 }

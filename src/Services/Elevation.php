@@ -27,7 +27,7 @@ class Elevation extends AbstractService
      * @throws LogicException
      * @return array<string, string|int|float>
      */
-    public function elevation($locations, $params=[])
+    public function elevation($locations, array $params=[])
     {
         // `locations` seems to only allow `lat,lng` pattern
         if (is_string($locations)) {
@@ -40,7 +40,7 @@ class Elevation extends AbstractService
 
         } elseif (isset($locations[0]) && isset($locations[1])) {
 
-            $params['locations'] = sprintf('%1.08d,%1.08d', $locations[0], $locations[1]);
+            $params['locations'] = sprintf('%1.08F,%1.08F', $locations[0], $locations[1]);
 
         } else {
 

@@ -3,7 +3,6 @@
 namespace yidas\GoogleMaps;
 
 use Exception;
-use yidas\GoogleMaps\Clients\ApiAuth;
 
 /**
  * Google Maps PHP Client - facade for processing
@@ -19,6 +18,8 @@ use yidas\GoogleMaps\Clients\ApiAuth;
  * @method array geolocate(array $bodyParams=[])
  * @method array timezone(string $location, string $timestamp=null, array $params=[])
  * @method array nearby(string $keyword, float[] $latlng, float $radius=null, string $type=null, array $params=[])
+ *
+ * @codeCoverageIgnore because accessing external resources
  */
 class Client
 {

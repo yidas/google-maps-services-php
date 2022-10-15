@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author  Petr Plsek <me@kalanys.com>
  * @version 2.0.0
+ * @codeCoverageIgnore because external resources
  */
 class PsrResponse extends AbstractResponse
 {

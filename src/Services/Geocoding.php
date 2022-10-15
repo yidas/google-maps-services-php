@@ -42,7 +42,7 @@ class Geocoding extends AbstractService
      * @param array<string, string|int|float> $params Query parameters
      * @return array<string, string|int|float>
      */
-    public function reverseGeocode($latlng, $params=[])
+    public function reverseGeocode($latlng, array $params=[])
     {
         // Check if latlng param is a place_id string.
         // place_id strings do not contain commas; latlng strings do.
@@ -56,7 +56,7 @@ class Geocoding extends AbstractService
 
         } elseif (isset($latlng[0]) && isset($latlng[1])) {
 
-            $params['latlng'] = sprintf('%1.08d,%1.08d', $latlng[0], $latlng[1]);
+            $params['latlng'] = sprintf('%1.08F,%1.08F', $latlng[0], $latlng[1]);
 
         } else {
 

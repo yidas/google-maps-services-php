@@ -45,8 +45,11 @@ class Geolocation extends AbstractService
         // Google API request body format
         $body = json_encode($bodyParams);
         if (false === $body) {
+            // @codeCoverageIgnoreStart
+            // to get this error you must have something really fishy in $bodyParams
             throw new LogicException(json_last_error_msg());
         }
+        // @codeCoverageIgnoreEnd
         $this->body = $body;
         return [];
     }

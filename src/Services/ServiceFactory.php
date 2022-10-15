@@ -36,12 +36,12 @@ class ServiceFactory
     public function getService(string $method): AbstractService
     {
         // Matching self::$serviceMethodMap is required
-        if (!isset(self::$serviceMethodMap[$method])) {
+        if (!isset(static::$serviceMethodMap[$method])) {
             throw new Exception("Call to undefined service method *{$method}*", 400);
         }
 
         // Get the service mapped by method
-        $service = self::$serviceMethodMap[$method];
+        $service = static::$serviceMethodMap[$method];
 
         $instance = new $service();
 

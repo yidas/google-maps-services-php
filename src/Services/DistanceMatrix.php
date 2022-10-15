@@ -25,7 +25,7 @@ class DistanceMatrix extends AbstractService
      * @param array<string, string|int|float> $params Query parameters
      * @return array<string, string|int|float>
      */
-    public function distanceMatrix($origins, $destinations, $params=[])
+    public function distanceMatrix(string $origins, string $destinations, array $params=[])
     {
         $params['origins'] = (string) $origins;
         $params['destinations'] = (string) $destinations;

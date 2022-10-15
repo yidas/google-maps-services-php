@@ -2,6 +2,8 @@
 
 namespace yidas\GoogleMaps\Services;
 
+use LogicException;
+
 /**
  * Timezone Service
  * 
@@ -20,11 +22,12 @@ class Timezone extends AbstractService
      * Timezone
      *
      * @param string|array<string> $location
-     * @param string $timestamp
+     * @param int $timestamp
      * @param array<string, string|int|float> $params Query parameters
+     * @throws LogicException
      * @return array<string, string|int|float>
      */
-    public function timezone($location, $timestamp=null, $params=[]): array
+    public function timezone($location, ?int $timestamp=null, array $params=[]): array
     {
         // `location` seems to only allow `lat,lng` pattern
         if (is_string($location)) {
@@ -33,8 +36,19 @@ class Timezone extends AbstractService
 
         } else {
 
-            list($lat, $lng) = $location;
-            $params['location'] = "{$lat},{$lng}";
+            if (isset($location['lat']) && isset($location['lng'])) {
+
+                $params['location'] = sprintf('%1.08F,%1.08F', $location['lat'], $location['lng']);
+
+            } elseif (isset($location[0]) && isset($location[1])) {
+
+                $params['location'] = sprintf('%1.08F,%1.08F', $location[0], $location[1]);
+
+            } else {
+
+                throw new LogicException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
+
+            }
         }
 
         // Timestamp

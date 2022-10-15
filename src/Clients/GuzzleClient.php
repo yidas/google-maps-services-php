@@ -4,12 +4,14 @@ namespace yidas\GoogleMaps\Clients;
 
 use Exception;
 use GuzzleHttp\Client as HttpClient;
+use yidas\GoogleMaps\ApiAuth;
 
 /**
  * Google Maps PHP Client
  *
  * @author  Nick Tsai <myintaer@gmail.com>
  * @version 1.0.0
+ * @codeCoverageIgnore because external resources
  */
 class GuzzleClient extends AbstractClient
 {

@@ -29,7 +29,7 @@ class Nearby extends AbstractService
      * @throws LogicException
      * @return array<string, string|int|float>
      */
-    public function nearby(string $keyword, array $latlng = [], ?float $radius = null, ?string $type = null, $params=[])
+    public function nearby(string $keyword, array $latlng = [], ?float $radius = null, ?string $type = null, array $params=[])
     {
         if (empty($keyword) && empty($latlng)) {
             throw new LogicException('You must set where to look!');
@@ -49,7 +49,7 @@ class Nearby extends AbstractService
 
             } elseif (isset($latlng[0]) && isset($latlng[1])) {
 
-                $params['latlng'] = sprintf('%1.08d,%1.08d', $latlng[0], $latlng[1]);
+                $params['latlng'] = sprintf('%1.08F,%1.08F', $latlng[0], $latlng[1]);
 
             } else {
 

@@ -5,7 +5,7 @@ namespace yidas\GoogleMaps;
 use Exception;
 
 /**
- * Google Maps PHP Client - access services
+ * Google Maps PHP Client - access services, process calls
  * 
  * @author  Petr Plsek <me@kalanys.com>
  * @version 2.0.0
@@ -76,9 +76,9 @@ class Services
         // walkthrough:
         // 1 - get service
         // 2 - call method to create query; pass params there
-        // 3 - method asks client for http data
-        // 4 - client response to method
-        // 5 - method parse response and returns them to the user
+        // 3 - asks client for http data with things from correct service
+        // 4 - client response with something
+        // 5 - parse response and returns it to the user
 
         // Get service from Factory
         $service = $this->factory->getService($method);
@@ -86,17 +86,22 @@ class Services
         $params = (array) call_user_func_array([$service, $method], $arguments);
 
         $response = $this->client->request($service->getPath(), $params, $service->getMethod(), $service->getBody());
-        $result = (array) json_decode($response->getMessageBody(), true);
+        $message = $response->getMessageBody();
+        $result = json_decode($message, true);
 
         // Error Handler
-        if (200 != $response->getStatusCode()) {
+        if (empty($result) && !empty($message)) {
+            // Error message directly in content
+            return $message;
+        } elseif (200 !== $response->getStatusCode()) {
+            // status code passed something
             return $result;
         } elseif (isset($result['error_message'])) {
-            // Error message Checker (200 situation form Google Maps API)
+            // Error message Checker (200 situation from Google Maps API)
             return $result;
         }
 
         // `results` parsing from Google Maps API, while pass parsing on error
-        return isset($result['results']) ? $result['results'] : $result;
+        return isset($result['results']) && $service->wantInnerResult() ? $result['results'] : $result;
     }
 }
