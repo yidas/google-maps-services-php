@@ -18,7 +18,7 @@ class GuzzleClient extends AbstractClient
     /**
      * Guzzle Http Client
      *
-     * @var GuzzleHttp\Client
+     * @var HttpClient
      */
     protected $httpClient;
 

@@ -96,7 +96,9 @@ class Services
         } elseif (200 !== $response->getStatusCode()) {
             // status code passed something
             return $result;
-        } elseif (isset($result['error_message'])) {
+        }
+        $result = (array) $result;
+        if (isset($result['error_message'])) {
             // Error message Checker (200 situation from Google Maps API)
             return $result;
         }

@@ -37,7 +37,7 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: none
       - run: composer install --no-progress
-      - run: PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --format=txt --verbose --diff --allow-risky=yes --config=.php-cs-fixer.dist.php
+      - run: PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --format=txt --verbose --diff --allow-risky=yes --config=.php-cs-fixer.php
 
   phpstan:
     runs-on: ubuntu-latest
