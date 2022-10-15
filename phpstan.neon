@@ -13,11 +13,5 @@ parameters:
 	ignoreErrors:
 		# quality WTF - usual problems with phpstan
 		-
-			message: '#Parameter \#1 \$function of function call_user_func_array expects callable#'
-			path: 'src/Services.php'
-		-
-			message: '#Parameter \#2 \$parameters of function call_user_func_array expects array#'
-			path: 'src/Services.php'
-		-
-			message: '#Parameter \#2 \$params of method yidas\\GoogleMaps\\Clients\\AbstractClient\:\:request\(\) expects array#'
+			message: '#Parameter \#1 \$callback of function call_user_func_array expects callable#'
 			path: 'src/Services.php'
