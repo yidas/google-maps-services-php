@@ -67,7 +67,7 @@ class Services
      * All service methods from Client calling would leave out the first argument (Client itself).
      *
      * @param string $method Client's method name
-     * @param array<string, string|int|float> $arguments Method arguments
+     * @param array<int, string|int|float> $arguments Method arguments
      * @throws Exception
      * @return mixed Processed service method return
      */
