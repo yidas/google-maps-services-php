@@ -10,10 +10,10 @@ use Exception;
  * @author  Nick Tsai <myintaer@gmail.com>
  * @version 1.0.0
  * 
- * @method array directions(string $origin, string $destination, array $params=[]) 
- * @method array distanceMatrix(string $origin, string $destination, array $params=[]) 
- * @method array elevation(string $locations, array $params=[]) 
- * @method array geocode(string $address, array $params=[]) 
+ * @method array directions(string $origin, string $destination, array $params=[])
+ * @method array distanceMatrix(string $origin, string $destination, array $params=[])
+ * @method array elevation(string $locations, array $params=[])
+ * @method array geocode(string $address, array $params=[])
  * @method array reverseGeocode($latlng, array $params=[])
  * @method array geolocate(array $bodyParams=[])
  * @method array timezone(string $location, string $timestamp=null, array $params=[])
@@ -66,7 +66,7 @@ class Client
      * All service methods from Client calling would leave out the first argument (Client itself).
      *
      * @param string $method Client's method name
-     * @param array<string, string|int|float> $arguments Method arguments
+     * @param array<int, string|int|float> $arguments Method arguments
      * @throws Exception
      * @return mixed Current service method return
      */
