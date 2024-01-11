@@ -18,7 +18,7 @@
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "phpunit/phpunit": ">=7.2"
+        "phpunit/phpunit": ">=7.2 <10"
     },
     "autoload": {
         "psr-4": {
