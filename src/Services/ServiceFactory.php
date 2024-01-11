@@ -3,6 +3,7 @@
 namespace yidas\GoogleMaps\Services;
 
 use Exception;
+use ReflectionClass;
 
 /**
  * Google Maps PHP Client - factory to get services
@@ -15,7 +16,7 @@ class ServiceFactory
     /**
      * For Client-Service API method director
      *
-     * @var array<string, string> Method => Service Class name
+     * @var array<string, class-string> Method => Service Class name
      */
     protected static $serviceMethodMap = [
         'directions' => Directions::class,
@@ -43,7 +44,8 @@ class ServiceFactory
         // Get the service mapped by method
         $service = static::$serviceMethodMap[$method];
 
-        $instance = new $service();
+        $reflection = new ReflectionClass($service);
+        $instance = $reflection->newInstance();
 
         if (!$instance instanceof AbstractService) {
             throw new Exception("Service *{$service}* is not an instance of \yidas\GoogleMaps\Services\AbstractService", 400);
