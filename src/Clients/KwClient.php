@@ -5,6 +5,7 @@ namespace yidas\GoogleMaps\Clients;
 use Exception;
 use kalanis\RemoteRequest;
 use yidas\GoogleMaps\ApiAuth;
+use UnexpectedValueException;
 
 /**
  * Google Maps RemoteRequest Client by
@@ -69,7 +70,13 @@ class KwClient extends AbstractClient
             (false !== strpos($apiPath, '://') ? '' : $this->httpParams['base_uri'])
             . $apiPath;
 
-        $parsedLink = (array) parse_url($address);
+        $parsedLink = parse_url($address);
+        if ((false === $parsedLink) || empty($parsedLink["host"]) || empty($parsedLink['path'])) {
+            // @codeCoverageIgnoreStart
+            // to get this error you must pass unrecognizable address into parser
+            throw new UnexpectedValueException('Link parser got something strange.');
+        }
+        // @codeCoverageIgnoreEnd
 
         $schema = !empty($parsedLink["scheme"]) ? strtolower($parsedLink["scheme"]) : '' ;
         switch ($schema) {
