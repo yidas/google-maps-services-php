@@ -4,6 +4,7 @@ namespace yidas\GoogleMaps\Clients;
 
 use Exception;
 use yidas\GoogleMaps\ApiAuth;
+use UnexpectedValueException;
 
 /**
  * Google Maps PHP Client by
@@ -107,6 +108,10 @@ class PhpClient extends AbstractClient
      */
     protected function postToServer(string $address, array $contextData): string
     {
-        return file_get_contents($address, false, stream_context_create($contextData)); // php 7.1+
+        $content = file_get_contents($address, false, stream_context_create($contextData)); // php 7.1+
+        if (false === $content) {
+            throw new UnexpectedValueException('Something failed on query.');
+        }
+        return $content;
     }
 }

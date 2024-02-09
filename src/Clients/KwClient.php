@@ -69,7 +69,7 @@ class KwClient extends AbstractClient
             (false !== strpos($apiPath, '://') ? '' : $this->httpParams['base_uri'])
             . $apiPath;
 
-        $parsedLink = parse_url($address);
+        $parsedLink = (array) parse_url($address);
 
         $schema = !empty($parsedLink["scheme"]) ? strtolower($parsedLink["scheme"]) : '' ;
         switch ($schema) {
