@@ -15,7 +15,7 @@
         "guzzlehttp/guzzle": "~6.5.6|^7.4.3"
     },
     "require-dev": {
-        "kalanis/RemoteRequest": ">=6.0 <7",
+        "alex-kalanis/remote-request": ">=6.0 <7",
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "friendsofphp/php-cs-fixer": "^3.0",
