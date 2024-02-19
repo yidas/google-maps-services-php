@@ -4,19 +4,19 @@ namespace yidas\googleMaps;
 
 /**
  * Google Maps Abstract Service
- * 
+ *
  * @author  Nick Tsai <myintaer@gmail.com>
  * @since   1.0.0
  */
-abstract class Service 
+abstract class Service
 {
     /**
      * Define by each service
-     * 
+     *
      * @param string
      */
     const API_PATH = '';
-    
+
     /**
      * Request Handler
      *
