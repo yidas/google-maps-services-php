@@ -171,6 +171,11 @@ class Client
             $defaultParams['language'] = $this->language;
         }
 
+        if (isset($params['headers'])) {
+            $options['headers'] = $params['headers'];
+            unset($params['headers']);
+        }
+
         // Query
         $options['query'] = array_merge($defaultParams, $params);
 

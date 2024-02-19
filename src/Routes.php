@@ -27,8 +27,16 @@ class Routes extends Service
      */
     public static function route(Client $client, $origin, $destination, $params=[])
     {
-        $params['origin'] = $origin;
-        $params['destination'] = $destination;
+        $requestData = $params;
+        $requestData['origin'] = $origin;
+        $requestData['destination'] = $destination;
+        $params = [];
+
+        $params['headers'] = [
+            'Content-Type' => 'application/json',
+            'X-Goog-FieldMask' => 'routes.duration,routes.distanceMeters,routes.legs,geocodingResults',
+        ];
+        $params['body'] = json_encode($requestData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
         return self::requestHandler($client, self::API_PATH, $params, 'POST');
     }
