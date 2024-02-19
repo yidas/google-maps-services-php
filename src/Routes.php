@@ -30,6 +30,6 @@ class Routes extends Service
         $params['origin'] = $origin;
         $params['destination'] = $destination;
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return self::requestHandler($client, self::API_PATH, $params, 'POST');
     }
 }
