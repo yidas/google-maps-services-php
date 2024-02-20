@@ -34,6 +34,9 @@ OUTLINE
     - [Geolocation API](#geolocation-api)
     - [Time Zone API](#time-zone-api)
     - [Nearby API](#nearby-api)
+    - [Find by Place API](#find-by-place-api)
+    - [Find by Text API](#find-by-text-api)
+    - [Place details API](#place-details-api)
 
 ---
 
