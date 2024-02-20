@@ -28,6 +28,7 @@ OUTLINE
         - [Language](#language)
     - [Directions API](#directions-api)
     - [Distance Matrix API](#distance-matrix-api)
+    - [Routes API](#routes-api)
     - [Elevation API](#elevation-api)
     - [Geocoding API](#geocoding-api)
     - [Geolocation API](#geolocation-api)
@@ -95,6 +96,7 @@ To get an API key:
     accesses the following APIs:
     * Directions API
     * Distance Matrix API
+    * Routes API
     * Elevation API
     * Geocoding API
     * Geolocation API
@@ -117,7 +119,7 @@ INSTALLATION
 Run Composer in your project:
 
     composer require yidas/google-maps-services
-    
+
 Then you could call it after Composer is loaded depended on your PHP framework:
 
 ```php
@@ -147,7 +149,7 @@ If you use [Google Maps APIs Premium Plan license](https://developers.google.com
 
 ```php
 $gmaps = new \yidas\googleMaps\Client([
-    'clientID' => 'Your client ID', 
+    'clientID' => 'Your client ID',
     'clientSecret' => 'Your digital signature'
     ]);
 ```
@@ -188,6 +190,13 @@ $distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei
 $distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101', [
     'units' => 'imperial',
     ]);
+```
+
+### Routes API
+
+```php
+// Get the distance matrix data between two places
+$route = $gmaps->route($from, $to, $params);
 ```
 
 ### Elevation API

@@ -7,18 +7,18 @@ use GuzzleHttp\Client as HttpClient;
 
 /**
  * Google Maps PHP Client
- * 
+ *
  * @author  Nick Tsai <myintaer@gmail.com>
  * @version 1.0.0
- * 
- * @method array directions(string $origin, string $destination, array $params=[]) 
- * @method array distanceMatrix(string $origin, string $destination, array $params=[]) 
- * @method array elevation(string $locations, array $params=[]) 
- * @method array geocode(string $address, array $params=[]) 
- * @method array reverseGeocode(string $latlng, array $params=[]) 
- * @method array geocode(string $address, array $params=[]) 
- * @method array geolocate(array $bodyParams=[]) 
- * @method array timezone(string $location, string $timestamp=null array $params=[]) 
+ *
+ * @method array directions(string $origin, string $destination, array $params=[])
+ * @method array distanceMatrix(string $origin, string $destination, array $params=[])
+ * @method array elevation(string $locations, array $params=[])
+ * @method array geocode(string $address, array $params=[])
+ * @method array reverseGeocode(string $latlng, array $params=[])
+ * @method array route(array $origin, array $destination, array $params=[])
+ * @method array geolocate(array $bodyParams=[])
+ * @method array timezone(string $location, string $timestamp=null, array $params=[])
  */
 class Client
 {
@@ -29,7 +29,7 @@ class Client
 
     /**
      * For service autoload
-     * 
+     *
      * @see http://php.net/manual/en/language.namespaces.rules.php
      */
     const SERVICE_NAMESPACE = "\\yidas\\googleMaps\\";
@@ -47,11 +47,12 @@ class Client
         'reverseGeocode' => 'Geocoding',
         'geolocate' => 'Geolocation',
         'timezone' => 'Timezone',
+        'route' => 'Routes',
     ];
-    
+
     /**
      * Google API Key
-     * 
+     *
      * Authenticating by API Key, otherwise by client ID/digital signature
      *
      * @var string
@@ -73,9 +74,7 @@ class Client
     protected $clientSecret;
 
     /**
-     * GuzzleHttp\Client
-     *
-     * @var GuzzleHttp\Client
+     * @var \GuzzleHttp\Client
      */
     protected $httpClient;
 
@@ -85,7 +84,7 @@ class Client
      * @var string ex. 'zh-TW'
      */
     protected $language;
-    
+
     /**
      * Constructor
      *
@@ -95,7 +94,7 @@ class Client
      *  'clientSecret' => Google clientSecret
      * @return self
      */
-    function __construct($optParams) 
+    function __construct($optParams)
     {
         // Quick setting for API Key
         if (is_string($optParams)) {
@@ -117,15 +116,15 @@ class Client
             if ($clientID || $clientSecret) {
                 throw new Exception("clientID/clientSecret should not set when using key", 400);
             }
-            
+
             $this->apiKey = (string) $key;
         }
         // Use clientID/clientSecret
         elseif ($clientID && $clientSecret) {
-            
+
             $this->clientID = (string) $clientID;
             $this->clientSecret = (string) $clientSecret;
-        } 
+        }
         else {
 
             throw new Exception("Unable to set Client credential due to your wrong params", 400);
@@ -155,19 +154,24 @@ class Client
      * @return GuzzleHttp\Psr7\Response
      */
     public function request($apiPath, $params=[], $method='GET', $body=null)
-    {   
+    {
         // Guzzle request options
         $options = [
             'http_errors' => false,
         ];
 
         // Parameters for Auth
-        $defaultParams = ($this->apiKey) 
-            ? ['key' => $this->apiKey] 
+        $defaultParams = ($this->apiKey)
+            ? ['key' => $this->apiKey]
             : ['client' => $this->clientID, 'signature' => $this->clientSecret];
         // Parameters for Language setting
         if ($this->language) {
             $defaultParams['language'] = $this->language;
+        }
+
+        if (isset($params['headers'])) {
+            $options['headers'] = $params['headers'];
+            unset($params['headers']);
         }
 
         // Query
@@ -177,7 +181,7 @@ class Client
         if ($body) {
             $options['body'] = $body;
         }
-        
+
         return $this->httpClient->request($method, $apiPath, $options);
     }
 
@@ -196,22 +200,22 @@ class Client
 
     /**
      * Client methods refer to each service
-     * 
+     *
      * All service methods from Client calling would leave out the first argument (Client itself).
      *
      * @param string Client's method name
      * @param array Method arguments
      * @return mixed Current service method return
-     * @example 
+     * @example
      *  $equal = \yidas\googleMaps\Geocoding::geocode($client, 'Address');
      *  $equal = $client->geocode('Address');
      */
     public function __call($method, $arguments)
     {
         // Matching self::$serviceMethodMap is required
-        if (!isset(self::$serviceMethodMap[$method])) 
+        if (!isset(self::$serviceMethodMap[$method]))
             throw new Exception("Call to undefined method ".__CLASS__."::{$method}()", 400);
-        
+
         // Get the service mapped by method
         $service = self::$serviceMethodMap[$method];
 

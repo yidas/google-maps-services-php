@@ -4,19 +4,19 @@ namespace yidas\googleMaps;
 
 /**
  * Google Maps Abstract Service
- * 
+ *
  * @author  Nick Tsai <myintaer@gmail.com>
  * @since   1.0.0
  */
-abstract class Service 
+abstract class Service
 {
     /**
      * Define by each service
-     * 
+     *
      * @param string
      */
     const API_PATH = '';
-    
+
     /**
      * Request Handler
      *
@@ -28,7 +28,13 @@ abstract class Service
      */
     protected static function requestHandler(Client $client, $apiPath, $params, $method='GET')
     {
-        $response = $client->request($apiPath, $params, $method);
+        $body = null;
+        if (isset($params['body'])) {
+            $body = $params['body'];
+            unset($params['body']);
+        }
+
+        $response = $client->request($apiPath, $params, $method, $body);
         $result = $response->getBody()->getContents();
         $result = json_decode($result, true);
 
