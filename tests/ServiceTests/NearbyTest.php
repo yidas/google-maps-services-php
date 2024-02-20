@@ -25,17 +25,23 @@ class NearbyTest extends CommonTestClass
     }
 
     /**
+     * @param array<string, string> $result
+     * @param array<string|int, string> $latLng
      * @throws Exception
+     * @dataProvider serviceLatLngProvider
      */
-    public function testServiceLatLng(): void
+    public function testServiceLatLng(array $result, array $latLng): void
     {
         $lib = new Services\Nearby();
-        $this->assertEquals([
-            'latlng' => '10.70000000,11.40000000',
-        ], $lib->nearby('', [10.7, 11.4]));
-        $this->assertEquals([
-            'latlng' => '20.50000000,22.80000000',
-        ], $lib->nearby('', ['lat' => 20.5, 'lng' => 22.8]));
+        $this->assertEquals($result, $lib->nearby('', $latLng));
+    }
+
+    public function serviceLatLngProvider(): array
+    {
+        return [
+            [['latlng' => '10.70000000,11.40000000',], [10.7, 11.4]],
+            [['latlng' => '20.50000000,22.80000000',], ['lat' => 20.5, 'lng' => 22.8]],
+        ];
     }
 
     /**

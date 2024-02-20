@@ -27,7 +27,7 @@ class Elevation extends AbstractService
      * @throws LogicException
      * @return array<string, string|int|float>
      */
-    public function elevation($locations, array $params=[])
+    public function elevation($locations, array $params=[]): array
     {
         // `locations` seems to only allow `lat,lng` pattern
         if (is_string($locations)) {

@@ -18,7 +18,7 @@ class ServiceFactory
      *
      * @var array<string, class-string> Method => Service Class name
      */
-    protected static $serviceMethodMap = [
+    protected $serviceMethodMap = [
         'directions' => Directions::class,
         'distanceMatrix' => DistanceMatrix::class,
         'elevation' => Elevation::class,
@@ -27,6 +27,9 @@ class ServiceFactory
         'geolocate' => Geolocation::class,
         'timezone' => Timezone::class,
         'nearby' => Nearby::class,
+        'findPlace' => FindPlace::class,
+        'findText' => FindText::class,
+        'placeDetails' => PlaceDetails::class,
     ];
 
     /**
@@ -37,12 +40,12 @@ class ServiceFactory
     public function getService(string $method): AbstractService
     {
         // Matching self::$serviceMethodMap is required
-        if (!isset(static::$serviceMethodMap[$method])) {
+        if (!isset($this->serviceMethodMap[$method])) {
             throw new Exception("Call to undefined service method *{$method}*", 400);
         }
 
         // Get the service mapped by method
-        $service = static::$serviceMethodMap[$method];
+        $service = $this->serviceMethodMap[$method];
 
         $reflection = new ReflectionClass($service);
         $instance = $reflection->newInstance();

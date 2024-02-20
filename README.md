@@ -232,6 +232,26 @@ $timezoneResult = $gmaps->timezone([25.0339639, 121.5644722]);
 $nearbyResult = $gmaps->nearby('restaurant', [25.0339639, 121.5644722]);
 ```
 
+### Find by Place API
+
+```php
+// requests the place points for given location by given place
+$nearbyResult = $gmaps->findPlace('Champs Elysees', 'restaurant', ['name', 'current_opening_hours']);
+```
+
+### Find by Text API
+
+```php
+// requests the place points for given location by given text
+$nearbyResult = $gmaps->findText('Sagrada Familia', 350, [], 3, 0, true);
+```
+
+### Place details API
+
+```php
+// requests the details about place point
+$nearbyResult = $gmaps->placeDetails('ChIJN1t_tDeuEmsRUsoyG83frY4', ['name', 'current_opening_hours']);
+```
 
 
 [Google Maps API Web Services]: https://developers.google.com/maps/documentation/webservices/

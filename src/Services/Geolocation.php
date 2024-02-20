@@ -40,7 +40,7 @@ class Geolocation extends AbstractService
      * @throws LogicException
      * @return array<string, string|int|float>
      */
-    public function geolocate($bodyParams=[])
+    public function geolocate($bodyParams=[]): array
     {
         // Google API request body format
         $body = json_encode($bodyParams);

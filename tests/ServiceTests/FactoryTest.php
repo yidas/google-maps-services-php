@@ -45,7 +45,7 @@ class FactoryTest extends CommonTestClass
 
 class XFactory extends Services\ServiceFactory
 {
-    protected static $serviceMethodMap = [
+    protected $serviceMethodMap = [
         'directions' => Services\Directions::class,
         'unusable' => '\stdClass',
     ];

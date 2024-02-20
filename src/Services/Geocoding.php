@@ -26,7 +26,7 @@ class Geocoding extends AbstractService
      * @param array<string, string|int|float> $params Query parameters
      * @return array<string, string|int|float>
      */
-    public function geocode($address=null, $params=[])
+    public function geocode($address=null, $params=[]): array
     {
         if (is_string($address)) {
             $params['address'] = $address;

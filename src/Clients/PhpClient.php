@@ -80,6 +80,7 @@ class PhpClient extends AbstractClient
         $http = [];
 
         if (!empty($body)) {
+            // geolocation and other services with request body
             $http['content'] = $body;
             $http['header'] = implode("\r\n", [
                 'Content-type: application/json',

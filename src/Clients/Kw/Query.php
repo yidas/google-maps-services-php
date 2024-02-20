@@ -33,8 +33,10 @@ class Query extends Protocols\Http\Query
     protected function contentTypeHeader(): parent
     {
         if (empty($this->body)) {
+            // other services
             $this->removeHeader('Content-Type');
         } else {
+            // geolocation and other services with request body
             $this->addHeader('Content-Type', 'application/json');
         }
         return $this;

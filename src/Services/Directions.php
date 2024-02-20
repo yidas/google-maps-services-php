@@ -25,7 +25,7 @@ class Directions extends AbstractService
      * @param array<string, string|int|float> $params Query parameters
      * @return array<string, string|int|float>
      */
-    public function directions($origin, $destination, $params = [])
+    public function directions($origin, $destination, $params = []): array
     {
         $params['origin'] = (string) $origin;
         $params['destination'] = (string) $destination;
