@@ -9,6 +9,7 @@
 PHP client library(SDK) for Google Maps API Web Services
 
 [![Latest Stable Version](https://poser.pugx.org/yidas/google-maps-services/v/stable?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/yidas/google-maps-services/license?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
 [![Total Downloads](https://poser.pugx.org/yidas/google-maps-services/downloads?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
 [![Monthly Downloads](https://poser.pugx.org/yidas/google-maps-services/d/monthly?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
@@ -71,6 +72,9 @@ The PHP Client for Google Maps Services is a PHP Client library for the followin
  - [Geolocation API]
  - [Time Zone API]
  - [Nearby API]
+ - [Find by Place API]
+ - [Find by Text API]
+ - [Place details API]
  - [Roads API] (Required)
  - [Places API] (Required)
 
@@ -79,7 +83,7 @@ The PHP Client for Google Maps Services is a PHP Client library for the followin
 REQUIREMENTS
 ------------
 
-- PHP 5.4.0+\|7.0+ or higher
+- PHP 7.1+ or higher
 
 ### API keys
 
@@ -264,5 +268,8 @@ $nearbyResult = $gmaps->placeDetails('ChIJN1t_tDeuEmsRUsoyG83frY4', ['name', 'cu
 [Geolocation API]: https://developers.google.com/maps/documentation/geolocation/
 [Nearby API]: https://developers.google.com/maps/documentation/places/web-service/search-nearby/
 [Time Zone API]: https://developers.google.com/maps/documentation/timezone/
+[Find by Place API]: https://developers.google.com/maps/documentation/places/web-service/search-find-place
+[Find by Text API]: https://developers.google.com/maps/documentation/places/web-service/search-text
+[Place details API]: https://developers.google.com/maps/documentation/places/web-service/details
 [Roads API]: https://developers.google.com/maps/documentation/roads/
 [Places API]: https://developers.google.com/places/
