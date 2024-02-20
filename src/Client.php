@@ -47,7 +47,7 @@ class Client
         'reverseGeocode' => 'Geocoding',
         'geolocate' => 'Geolocation',
         'timezone' => 'Timezone',
-        'route' => 'Routes'
+        'route' => 'Routes',
     ];
 
     /**
@@ -74,9 +74,7 @@ class Client
     protected $clientSecret;
 
     /**
-     * GuzzleHttp\Client
-     *
-     * @var GuzzleHttp\Client
+     * @var \GuzzleHttp\Client
      */
     protected $httpClient;
 

@@ -22,7 +22,7 @@ class Routes extends Service
      * @param Client $client
      * @param array $origin
      * @param array $destination
-     * @param array Query parameters
+     * @param array $params Query parameters
      * @return array Result
      */
     public static function route(Client $client, $origin, $destination, $params=[])
@@ -30,9 +30,12 @@ class Routes extends Service
         $requestData = $params;
         $requestData['origin'] = $origin;
         $requestData['destination'] = $destination;
-        $params = [];
+        $params = [
+            'headers' => $requestData['headers'] ?? [],
+        ];
+        unset($requestData['headers']);
 
-        $params['headers'] = [
+        $params['headers'] += [
             'Content-Type' => 'application/json',
             'X-Goog-FieldMask' => 'routes.duration,routes.distanceMeters,routes.legs,geocodingResults',
         ];
