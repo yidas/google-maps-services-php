@@ -151,9 +151,10 @@ class Client
      * @param array $params
      * @param string $method HTTP request method
      * @param string $body
+     * @param array $headers
      * @return GuzzleHttp\Psr7\Response
      */
-    public function request($apiPath, $params=[], $method='GET', $body=null)
+    public function request($apiPath, $params=[], $method='GET', $body=null, $headers=null)
     {
         // Guzzle request options
         $options = [
@@ -164,22 +165,22 @@ class Client
         $defaultParams = ($this->apiKey)
             ? ['key' => $this->apiKey]
             : ['client' => $this->clientID, 'signature' => $this->clientSecret];
-        // Parameters for Language setting
-        if ($this->language) {
+        // Language setting for query string
+        if ($method == 'GET' && $this->language) {
             $defaultParams['language'] = $this->language;
         }
 
-        if (isset($params['headers'])) {
-            $options['headers'] = $params['headers'];
-            unset($params['headers']);
-        }
-
-        // Query
+        // Query String
         $options['query'] = array_merge($defaultParams, $params);
 
         // Body
         if ($body) {
             $options['body'] = $body;
+        }
+
+        // Headers
+        if ($headers) {
+            $options['headers'] = $headers;
         }
 
         return $this->httpClient->request($method, $apiPath, $options);
@@ -196,6 +197,16 @@ class Client
         $this->language = $language;
 
         return $this;
+    }
+
+    /**
+     * Get current language setting for Google Maps API
+     *
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
     }
 
     /**

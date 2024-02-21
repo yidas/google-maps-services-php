@@ -24,17 +24,22 @@ abstract class Service
      * @param string $apiPath
      * @param array $params
      * @param string $method HTTP request method
+     * @param array $body
+     * @param array $headers
      * @return array|mixed Formated result
      */
-    protected static function requestHandler(Client $client, $apiPath, $params, $method='GET')
+    protected static function requestHandler(Client $client, $apiPath, $params, $method='GET', $body=[], $headers=[])
     {
-        $body = null;
-        if (isset($params['body'])) {
-            $body = $params['body'];
-            unset($params['body']);
-        }
+        // Body
+        $bodyString = ($body) ? json_encode($body, JSON_UNESCAPED_SLASHES) : null;
 
-        $response = $client->request($apiPath, $params, $method, $body);
+        // Header
+        $defaultHeaders = [
+            'Content-Type' => 'application/json',
+        ];
+        $headers = array_merge($defaultHeaders, $headers);
+
+        $response = $client->request($apiPath, $params, $method, $bodyString, $headers);
         $result = $response->getBody()->getContents();
         $result = json_decode($result, true);
 

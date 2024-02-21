@@ -22,25 +22,27 @@ class Routes extends Service
      * @param Client $client
      * @param array $origin
      * @param array $destination
-     * @param array $params Query parameters
+     * @param array $body Full body
+     * @param array $headers
      * @return array Result
      */
-    public static function route(Client $client, $origin, $destination, $params=[])
+    public static function route(Client $client, $origin, $destination, $body=[], $headers=[])
     {
-        $requestData = $params;
-        $requestData['origin'] = $origin;
-        $requestData['destination'] = $destination;
-        $params = [
-            'headers' => $requestData['headers'] ?? [],
-        ];
-        unset($requestData['headers']);
+        $requestBody = $body;
+        $requestBody['origin'] = $origin ?? $requestBody['origin'] ?? [];
+        $requestBody['destination'] = $destination ?? $requestBody['destination'] ?? [];
 
-        $params['headers'] += [
-            'Content-Type' => 'application/json',
+        // Language Code
+        if (!isset($requestBody['languageCode']) && $client->getLanguage()) {     
+            $requestBody['languageCode'] = $client->getLanguage();
+        }
+
+        // Header
+        $defaultHeaders = [
             'X-Goog-FieldMask' => 'routes.duration,routes.distanceMeters,routes.legs,geocodingResults',
         ];
-        $params['body'] = json_encode($requestData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        $headers = array_merge($defaultHeaders, $headers);
 
-        return self::requestHandler($client, self::API_PATH, $params, 'POST');
+        return self::requestHandler($client, self::API_PATH, [], 'POST', $requestBody, $headers);
     }
 }
