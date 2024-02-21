@@ -171,6 +171,8 @@ You could set language for Client for all services:
 $gmaps = new \yidas\googleMaps\Client(['key'=>'Your API Key', 'language'=>'zh-TW']);
 ```
 
+> [list of supported languages - Google Maps Platform](https://developers.google.com/maps/faq#languagesupport)
+
 Changing language during execution:
 
 ```php
