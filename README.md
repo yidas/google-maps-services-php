@@ -62,23 +62,28 @@ $directionsResult = $gmaps->directions('National Palace Museum', 'Taipei 101', [
 DESCRIPTION
 -----------
 
-The PHP Client for Google Maps Services is a PHP Client library for the following Google Maps APIs:
+The PHP Client for Google Maps Services is a PHP Client library for the following [Google Maps APIs](https://developers.google.com/maps):
 
- - [Directions API]
- - [Distance Matrix API]
- - [Elevation API]
- - [Geocoding API]
- - [Geolocation API]
- - [Time Zone API]
- - [Roads API] (Required)
- - [Places API] (Required)
+- Maps
+    - [Elevation API]
+- Routes
+    - [Routes API](https://developers.google.com/maps/documentation/routes)
+    - [Roads API] (TBD)
+    - [Directions API]
+    - [Distance Matrix API]
+- Places
+    - [Places API] (TBD)
+    - [Geocoding API]
+    - [Geolocation API]
+    - [Time Zone API]
+ 
 
 ---
 
 REQUIREMENTS
 ------------
 
-- PHP 5.4.0+\|7.0+ or higher
+- PHP 7.0+ or higher
 
 ### API keys
 
@@ -92,17 +97,11 @@ To get an API key:
  1. Visit https://developers.google.com/console and log in with
     a Google Account.
  2. Select one of your existing projects, or create a new project.
- 3. Enable the API(s) you want to use. The Client for Google Maps Services
-    accesses the following APIs:
+ 3. Enable the Google Maps Services API(s) you plan to use, such as:
     * Directions API
     * Distance Matrix API
-    * Routes API
-    * Elevation API
     * Geocoding API
-    * Geolocation API
-    * Places API
-    * Roads API
-    * Time Zone API
+    * ...
  4. Create a new **Server key**.
  5. If you'd like to restrict requests to a specific IP address, do so now.
 
@@ -161,6 +160,8 @@ You could set language for Client for all services:
 ```php
 $gmaps = new \yidas\googleMaps\Client(['key'=>'Your API Key', 'language'=>'zh-TW']);
 ```
+
+> [list of supported languages - Google Maps Platform](https://developers.google.com/maps/faq#languagesupport)
 
 Changing language during execution:
 
