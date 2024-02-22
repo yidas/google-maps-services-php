@@ -195,8 +195,28 @@ $distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei
 ### Routes API
 
 ```php
-// Get the distance matrix data between two places
-$route = $gmaps->route($from, $to, $params);
+$route = $gmaps->route($originArray, $destinationArray, $fullBodyArray)
+
+// Get the route data between two places simply
+$route = $gmaps->route([
+        "location" => [
+           "latLng" => [
+              "latitude" => 37.419734,
+              "longitude" => -122.0827784
+           ]
+        ]
+    ],
+    [
+        "location" => [
+           "latLng" => [
+              "latitude" => 37.41767,
+              "longitude" => -122.079595
+           ]
+        ]
+    ]);
+
+// Get the route data between two places with full request data
+$route = $gmaps->route([...], [...], ["travelMode": "DRIVE", ...]);
 ```
 
 ### Elevation API
