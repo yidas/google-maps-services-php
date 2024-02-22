@@ -9,7 +9,7 @@ use GuzzleHttp\Client as HttpClient;
  * Google Maps PHP Client
  *
  * @author  Nick Tsai <myintaer@gmail.com>
- * @version 1.0.0
+ * @version 1.1.0
  *
  * @method array directions(string $origin, string $destination, array $params=[])
  * @method array distanceMatrix(string $origin, string $destination, array $params=[])

@@ -6,7 +6,7 @@ namespace yidas\googleMaps;
  * Google Maps Abstract Service
  *
  * @author  Nick Tsai <myintaer@gmail.com>
- * @since   1.0.0
+ * @since   1.1.0
  */
 abstract class Service
 {
