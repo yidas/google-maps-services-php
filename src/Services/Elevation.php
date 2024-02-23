@@ -16,7 +16,7 @@ class Elevation extends AbstractMapService
 {
     public function getPath(): string
     {
-        return '/maps/api/elevation/json';
+        return static::API_HOST . '/maps/api/elevation/json';
     }
 
     /**

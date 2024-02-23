@@ -39,7 +39,7 @@ class PlaceDetails extends AbstractMapService
 
     public function getPath(): string
     {
-        return '/maps/api/place/details/json';
+        return static::API_HOST . '/maps/api/place/details/json';
     }
 
     /**

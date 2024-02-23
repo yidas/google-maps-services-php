@@ -15,7 +15,7 @@ class FindText extends AbstractMapService
 {
     public function getPath(): string
     {
-        return '/maps/api/place/textsearch/json';
+        return static::API_HOST . '/maps/api/place/textsearch/json';
     }
 
     /**

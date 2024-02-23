@@ -17,7 +17,7 @@ class NearbyTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\Nearby(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/place/nearbysearch/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/place/nearbysearch/json', $lib->getPath());
         $this->assertEquals([
             'keyword' => 'foo',
             'radius' => 10.2,

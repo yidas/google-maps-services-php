@@ -15,7 +15,7 @@ class Nearby extends AbstractMapService
 {
     public function getPath(): string
     {
-        return '/maps/api/place/nearbysearch/json';
+        return static::API_HOST . '/maps/api/place/nearbysearch/json';
     }
 
     /**

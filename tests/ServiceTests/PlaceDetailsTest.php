@@ -17,7 +17,7 @@ class PlaceDetailsTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\PlaceDetails(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/place/details/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/place/details/json', $lib->getPath());
         $this->assertEquals([
             'place_id' => 'foo',
             'region' => 'gr',

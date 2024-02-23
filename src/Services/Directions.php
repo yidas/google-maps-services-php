@@ -14,7 +14,7 @@ class Directions extends AbstractMapService
 {
     public function getPath(): string
     {
-        return '/maps/api/directions/json';
+        return static::API_HOST . '/maps/api/directions/json';
     }
 
     /**

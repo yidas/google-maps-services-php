@@ -17,7 +17,7 @@ class DistanceTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\DistanceMatrix(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/distancematrix/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/distancematrix/json', $lib->getPath());
         $this->assertEquals([
             'origins' => 'you do not know where',
             'destinations' => 'you do not want to know',

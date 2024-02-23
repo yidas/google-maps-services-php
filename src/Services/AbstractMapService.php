@@ -12,6 +12,8 @@ namespace yidas\GoogleMaps\Services;
  */
 abstract class AbstractMapService extends AbstractService
 {
+    const API_HOST = 'https://maps.googleapis.com';
+
     /**
      * @param array<string, string|int|float> $params
      * @return array<string, string|int|float>

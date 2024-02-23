@@ -11,11 +11,6 @@ namespace yidas\GoogleMaps;
 class ApiAuth
 {
     /**
-     * Google Maps Platform base API host
-     */
-    const API_HOST = 'https://maps.googleapis.com';
-
-    /**
      * Google API Key
      *
      * Authenticating by API Key, otherwise by client ID/digital signature

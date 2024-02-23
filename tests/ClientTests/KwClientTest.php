@@ -35,7 +35,7 @@ class KwClientTest extends \CommonTestClass
                 . AResponse::DELIMITER . 'User-Agent: php-agent/1.3'
                 . AResponse::DELIMITER . 'Connection: close'
                 . AResponse::DELIMITER . AResponse::DELIMITER . '";'
-                , '/maps/api/directions/json', ['destination'=>'Montreal', 'origin'=>'Toronto'], 'gEt', [], null
+                , 'https://maps.googleapis.com/maps/api/directions/json', ['destination'=>'Montreal', 'origin'=>'Toronto'], 'gEt', [], null
             ],
             ['ssl://---maps.googleapis.com---443---5'
                 . AResponse::DELIMITER . AResponse::DELIMITER . 's:230:"POST /geolocation/v1/geolocate? HTTP/1.1'
@@ -47,7 +47,7 @@ class KwClientTest extends \CommonTestClass
                 . AResponse::DELIMITER . 'Content-Length: 15'
                 . AResponse::DELIMITER . 'Content-Type: application/json'
                 . AResponse::DELIMITER . AResponse::DELIMITER . 'foo=bar&baz=zgv";'
-                , '/geolocation/v1/geolocate', [], 'PoSt', ['X-Header-data' => 'pass-to-test'], 'foo=bar&baz=zgv'
+                , 'https://maps.googleapis.com/geolocation/v1/geolocate', [], 'PoSt', ['X-Header-data' => 'pass-to-test'], 'foo=bar&baz=zgv'
             ],
             ['tcp://---localhost---80---5'
                 . AResponse::DELIMITER . AResponse::DELIMITER . 's:119:"GET /any/v1/somewhere?key=test HTTP/1.1'
@@ -70,6 +70,17 @@ class KwClientTest extends \CommonTestClass
         $this->expectExceptionMessage('Invalid schema in query');
         $this->expectException(RemoteRequest\RequestException::class);
         $lib->request('fsp://watafaka/', [], 'oof');
+    }
+
+    /**
+     * @throws RemoteRequest\RequestException
+     */
+    public function testRequestFail2(): void
+    {
+        $lib = new XKwClient();
+        $this->expectExceptionMessage('Link parser got something strange.');
+        $this->expectException(RemoteRequest\RequestException::class);
+        $lib->request('/just/relative/address', [], 'oof');
     }
 }
 

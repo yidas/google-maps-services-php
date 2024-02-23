@@ -3,8 +3,6 @@
 namespace yidas\GoogleMaps\Clients;
 
 use kalanis\RemoteRequest;
-use yidas\GoogleMaps\ApiAuth;
-use UnexpectedValueException;
 
 /**
  * Google Maps RemoteRequest Client by
@@ -17,20 +15,9 @@ use UnexpectedValueException;
 class KwClient extends AbstractClient
 {
     /**
-     * @var array<string, mixed>
+     * @var float
      */
-    protected $httpParams;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->httpParams = [
-            'base_uri' => ApiAuth::API_HOST,
-            'timeout' => 5.0,
-        ];
-    }
+    protected $timeout = 5.0;
 
     /**
      * Request Google Map API
@@ -46,17 +33,11 @@ class KwClient extends AbstractClient
     public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): AbstractResponse
     {
         // Address
-        $address =
-            (false !== strpos($apiPath, '://') ? '' : $this->httpParams['base_uri'])
-            . $apiPath;
-
-        $parsedLink = parse_url($address);
+        $parsedLink = parse_url($apiPath);
         if ((false === $parsedLink) || empty($parsedLink["host"]) || empty($parsedLink['path'])) {
-            // @codeCoverageIgnoreStart
             // to get this error you must pass unrecognizable address into parser
-            throw new UnexpectedValueException('Link parser got something strange.');
+            throw new RemoteRequest\RequestException('Link parser got something strange.');
         }
-        // @codeCoverageIgnoreEnd
 
         $schema = !empty($parsedLink["scheme"]) ? strtolower($parsedLink["scheme"]) : '' ;
         switch ($schema) {
@@ -77,7 +58,7 @@ class KwClient extends AbstractClient
         $libParams->setTarget(
             strval($parsedLink["host"]),
             empty($parsedLink["port"]) ? $port : intval($parsedLink["port"]),
-            intval($this->httpParams['timeout'])
+            intval($this->timeout)
         );
 
         $libQuery = new Kw\Query(); # http rest internals

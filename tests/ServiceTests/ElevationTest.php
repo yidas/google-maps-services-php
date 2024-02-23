@@ -17,7 +17,7 @@ class ElevationTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\Elevation(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/elevation/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/elevation/json', $lib->getPath());
         $this->assertEquals([
             'locations' => 'you do not know where',
             'key' => 'test',

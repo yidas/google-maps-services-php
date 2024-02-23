@@ -32,7 +32,7 @@ class FindPlace extends AbstractMapService
 
     public function getPath(): string
     {
-        return '/maps/api/place/findplacefromtext/json';
+        return static::API_HOST . '/maps/api/place/findplacefromtext/json';
     }
 
     /**

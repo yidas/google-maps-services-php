@@ -14,7 +14,7 @@ class DistanceMatrix extends AbstractMapService
 {
     public function getPath(): string
     {
-        return '/maps/api/distancematrix/json';
+        return static::API_HOST . '/maps/api/distancematrix/json';
     }
 
     /**

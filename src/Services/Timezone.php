@@ -15,7 +15,7 @@ class Timezone extends AbstractMapService
 {
     public function getPath(): string
     {
-        return '/maps/api/timezone/json';
+        return static::API_HOST . '/maps/api/timezone/json';
     }
 
     /**

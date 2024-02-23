@@ -16,7 +16,7 @@ class Geocoding extends AbstractMapService
 {
     public function getPath(): string
     {
-        return '/maps/api/geocode/json';
+        return static::API_HOST . '/maps/api/geocode/json';
     }
 
     /**

@@ -17,7 +17,7 @@ class GeocodingTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\Geocoding(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/geocode/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/geocode/json', $lib->getPath());
         $this->assertEquals([
             'address' => 'somewhere in the land',
             'key' => 'test',

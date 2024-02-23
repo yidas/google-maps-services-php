@@ -17,7 +17,7 @@ class TimezoneTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\Timezone(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/timezone/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/timezone/json', $lib->getPath());
         $this->assertEquals([
             'location' => '10.1, 20.2',
             'timestamp' => 1234567890,

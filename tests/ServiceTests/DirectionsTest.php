@@ -17,7 +17,7 @@ class DirectionsTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\Directions(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/directions/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/directions/json', $lib->getPath());
         $this->assertEquals([
             'origin' => 'you do not know where',
             'destination' => 'you do not want to know',

@@ -17,7 +17,7 @@ class FindTextTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\FindText(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/place/textsearch/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/place/textsearch/json', $lib->getPath());
         $this->assertEquals([
             'query' => 'foo',
             'radius' => '5.00',

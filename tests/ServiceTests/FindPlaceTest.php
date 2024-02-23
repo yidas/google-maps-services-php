@@ -17,7 +17,7 @@ class FindPlaceTest extends CommonTestClass
     public function testService(): void
     {
         $lib = new Services\FindPlace(new ApiAuth('test'));
-        $this->assertEquals('/maps/api/place/findplacefromtext/json', $lib->getPath());
+        $this->assertEquals('https://maps.googleapis.com/maps/api/place/findplacefromtext/json', $lib->getPath());
         $this->assertEquals([
             'input' => 'foo',
             'inputtype' => 'bar',

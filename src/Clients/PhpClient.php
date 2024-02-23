@@ -2,7 +2,6 @@
 
 namespace yidas\GoogleMaps\Clients;
 
-use yidas\GoogleMaps\ApiAuth;
 use UnexpectedValueException;
 
 /**
@@ -16,20 +15,9 @@ use UnexpectedValueException;
 class PhpClient extends AbstractClient
 {
     /**
-     * @var array<string, mixed>
+     * @var float
      */
-    protected $httpParams;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->httpParams = [
-            'base_uri' => ApiAuth::API_HOST,
-            'timeout' => 5.0,
-        ];
-    }
+    protected $timeout = 5.0;
 
     /**
      * Request Google Map API
@@ -44,9 +32,7 @@ class PhpClient extends AbstractClient
     public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): AbstractResponse
     {
         // Address
-        $address =
-            (false !== strpos($apiPath, '://') ? '' : $this->httpParams['base_uri'])
-            . $apiPath . '?' . http_build_query($query);
+        $address = $apiPath . '?' . http_build_query($query);
 
         return new PhpResponse($this->postToServer($address, $this->contextDataForPost($method, $headers, $body)));
     }
@@ -85,7 +71,7 @@ class PhpClient extends AbstractClient
             ],
             'http' => array_merge([
                 'method' => strtoupper($method),
-                'timeout' => intval($this->httpParams['timeout'])
+                'timeout' => intval($this->timeout)
             ], $http)
         ];
     }
