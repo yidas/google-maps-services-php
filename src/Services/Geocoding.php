@@ -2,18 +2,18 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use LogicException;
+use yidas\GoogleMaps\ServiceException;
 
 /**
  * Geocoding Service
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
  * @since   1.0.0
- * @see https://developers.google.com/maps/documentation/geocoding/
+ * @see     https://developers.google.com/maps/documentation/geocoding/
+ * @see     https://developers.google.com/maps/documentation/geocoding/requests-geocoding
  */
-class Geocoding extends AbstractService
+class Geocoding extends AbstractMapService
 {
-
     public function getPath(): string
     {
         return '/maps/api/geocode/json';
@@ -32,7 +32,7 @@ class Geocoding extends AbstractService
             $params['address'] = $address;
         }
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 
     /**
@@ -40,6 +40,7 @@ class Geocoding extends AbstractService
      *
      * @param array<string|float>|string $latlng ['lat', 'lng'] or place_id string
      * @param array<string, string|int|float> $params Query parameters
+     * @throws ServiceException
      * @return array<string, string|int|float>
      */
     public function reverseGeocode($latlng, array $params=[])
@@ -47,7 +48,7 @@ class Geocoding extends AbstractService
         // Check if latlng param is a place_id string.
         // place_id strings do not contain commas; latlng strings do.
         if (is_string($latlng)) {
-            
+
             $params['place_id'] = $latlng;
 
         } elseif (isset($latlng['lat']) && isset($latlng['lng'])) {
@@ -60,10 +61,10 @@ class Geocoding extends AbstractService
 
         } else {
 
-            throw new LogicException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
+            throw new ServiceException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
 
         }
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 }

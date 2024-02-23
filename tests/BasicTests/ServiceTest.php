@@ -4,62 +4,63 @@ namespace BasicTests;
 
 
 use CommonTestClass;
-use Exception;
+use yidas\GoogleMaps\ApiAuth;
 use yidas\GoogleMaps\Clients;
+use yidas\GoogleMaps\ServiceException;
 use yidas\GoogleMaps\Services;
 
 
 class ServiceTest extends CommonTestClass
 {
     /**
-     * @throws Exception
+     * @throws ServiceException
      */
     public function testServiceFailDecode(): void
     {
-        $lib = new Services(new XTestClient1());
+        $lib = new Services(new XTestClient1(), new Services\ServiceFactory(new ApiAuth('test')));
         $lib->setLanguage('Hr-hr');
         $this->assertEquals('dummy response from remote service', $lib->directions('foo', 'bar'));
     }
 
     /**
-     * @throws Exception
+     * @throws ServiceException
      */
     public function testServiceFailCode(): void
     {
-        $lib = new Services(new XTestClient2());
+        $lib = new Services(new XTestClient2(), new Services\ServiceFactory(new ApiAuth('test')));
         $this->assertEquals([
             'error' => 'Unable to show',
         ], $lib->directions('foo', 'bar'));
     }
 
     /**
-     * @throws Exception
+     * @throws ServiceException
      */
     public function testServiceFailMessage(): void
     {
-        $lib = new Services(new XTestClient3());
+        $lib = new Services(new XTestClient3(), new Services\ServiceFactory(new ApiAuth('test')));
         $this->assertEquals([
             'error_message' => 'Unable to show',
         ], $lib->directions('foo', 'bar'));
     }
 
     /**
-     * @throws Exception
+     * @throws ServiceException
      */
     public function testServicePassWithoutResults(): void
     {
-        $lib = new Services(new XTestClient4());
+        $lib = new Services(new XTestClient4(), new Services\ServiceFactory(new ApiAuth('test')));
         $this->assertEquals([
             'status' => 'Show now',
         ], $lib->directions('foo', 'bar'));
     }
 
     /**
-     * @throws Exception
+     * @throws ServiceException
      */
     public function testServicePassWithResults(): void
     {
-        $lib = new Services(new XTestClient5());
+        $lib = new Services(new XTestClient5(), new Services\ServiceFactory(new ApiAuth('test')));
         $this->assertEquals([
             'a',
             'b',
@@ -70,7 +71,7 @@ class ServiceTest extends CommonTestClass
 
 class XTestClient1 extends Clients\AbstractClient
 {
-    public function request(string $apiPath, array $params = [], string $method = 'GET', ?string $body = null): Clients\AbstractResponse
+    public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): Clients\AbstractResponse
     {
         return new XTestResponse1();
     }
@@ -93,7 +94,7 @@ class XTestResponse1 extends Clients\AbstractResponse
 
 class XTestClient2 extends Clients\AbstractClient
 {
-    public function request(string $apiPath, array $params = [], string $method = 'GET', ?string $body = null): Clients\AbstractResponse
+    public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): Clients\AbstractResponse
     {
         return new XTestResponse2();
     }
@@ -116,7 +117,7 @@ class XTestResponse2 extends Clients\AbstractResponse
 
 class XTestClient3 extends Clients\AbstractClient
 {
-    public function request(string $apiPath, array $params = [], string $method = 'GET', ?string $body = null): Clients\AbstractResponse
+    public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): Clients\AbstractResponse
     {
         return new XTestResponse3();
     }
@@ -139,7 +140,7 @@ class XTestResponse3 extends Clients\AbstractResponse
 
 class XTestClient4 extends Clients\AbstractClient
 {
-    public function request(string $apiPath, array $params = [], string $method = 'GET', ?string $body = null): Clients\AbstractResponse
+    public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): Clients\AbstractResponse
     {
         return new XTestResponse4();
     }
@@ -162,7 +163,7 @@ class XTestResponse4 extends Clients\AbstractResponse
 
 class XTestClient5 extends Clients\AbstractClient
 {
-    public function request(string $apiPath, array $params = [], string $method = 'GET', ?string $body = null): Clients\AbstractResponse
+    public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): Clients\AbstractResponse
     {
         return new XTestResponse5();
     }

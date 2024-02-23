@@ -4,20 +4,22 @@ namespace ServiceTests;
 
 
 use CommonTestClass;
-use Exception;
+use yidas\GoogleMaps\ApiAuth;
+use yidas\GoogleMaps\ServiceException;
 use yidas\GoogleMaps\Services;
 
 
 class BasicsTest extends CommonTestClass
 {
     /**
-     * @throws Exception
+     * @throws ServiceException
      */
     public function testService(): void
     {
-        $lib = new XService();
+        $lib = new XService(new ApiAuth('test'));
         $this->assertEquals('dummy path', $lib->getPath());
         $this->assertEquals('GET', $lib->getMethod());
+        $this->assertEquals([], $lib->getHeaders());
         $this->assertEquals(null, $lib->getBody());
         $this->assertEquals(true, $lib->wantInnerResult());
     }

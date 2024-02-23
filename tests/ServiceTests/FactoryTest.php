@@ -4,40 +4,45 @@ namespace ServiceTests;
 
 
 use CommonTestClass;
-use Exception;
+use ReflectionException;
+use yidas\GoogleMaps\ApiAuth;
+use yidas\GoogleMaps\ServiceException;
 use yidas\GoogleMaps\Services;
 
 
 class FactoryTest extends CommonTestClass
 {
     /**
-     * @throws Exception
+     * @throws ServiceException
+     * @throws ReflectionException
      */
     public function testServiceOk(): void
     {
-        $lib = new XFactory();
+        $lib = new XFactory(new ApiAuth('test'));
         $this->assertNotEmpty($lib->getService('directions'));
     }
 
     /**
-     * @throws Exception
+     * @throws ServiceException
+     * @throws ReflectionException
      */
     public function testServiceFailNoTarget(): void
     {
-        $lib = new XFactory();
+        $lib = new XFactory(new ApiAuth('test'));
         $this->expectExceptionMessage('Call to undefined service method *unknown one*');
-        $this->expectException(Exception::class);
+        $this->expectException(ServiceException::class);
         $lib->getService('unknown one');
     }
 
     /**
-     * @throws Exception
+     * @throws ServiceException
+     * @throws ReflectionException
      */
     public function testServiceFailWrongTarget(): void
     {
-        $lib = new XFactory();
-        $this->expectExceptionMessage('Service *\stdClass* is not an instance of \yidas\GoogleMaps\Services\AbstractService');
-        $this->expectException(Exception::class);
+        $lib = new XFactory(new ApiAuth('test'));
+        $this->expectExceptionMessage('Service *ServiceTests\XClass* is not an instance of \yidas\GoogleMaps\Services\AbstractService');
+        $this->expectException(ServiceException::class);
         $lib->getService('unusable');
     }
 }
@@ -47,6 +52,15 @@ class XFactory extends Services\ServiceFactory
 {
     protected $serviceMethodMap = [
         'directions' => Services\Directions::class,
-        'unusable' => '\stdClass',
+        'unusable' => XClass::class,
     ];
 }
+
+
+class XClass extends \stdClass
+{
+    public function __construct($param)
+    {
+    }
+}
+

@@ -2,16 +2,16 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use LogicException;
+use yidas\GoogleMaps\ServiceException;
 
 /**
  * Place Details service
  *
  * @author  Petr Plsek <me@kalanys.com>
  * @since   2.2.0
- * @see https://developers.google.com/maps/documentation/places/web-service/details
+ * @see     https://developers.google.com/maps/documentation/places/web-service/details
  */
-class PlaceDetails extends AbstractService
+class PlaceDetails extends AbstractMapService
 {
     /**
      * @var string[]
@@ -51,7 +51,7 @@ class PlaceDetails extends AbstractService
      * @param bool $translateReviews
      * @param string|null $sortReviews
      * @param array<string, string|int|float> $params Query parameters
-     * @throws LogicException
+     * @throws ServiceException
      * @return array<string, string|int|float>
      */
     public function placeDetails(
@@ -64,7 +64,7 @@ class PlaceDetails extends AbstractService
     ): array
     {
         if (empty($placeId)) {
-            throw new LogicException('You must set where to look!');
+            throw new ServiceException('You must set where to look!');
         }
 
         // Main wanted id
@@ -86,6 +86,6 @@ class PlaceDetails extends AbstractService
             $params['reviews_sort'] = strtolower($sortReviews);
         }
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 }

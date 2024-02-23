@@ -11,3 +11,5 @@ phpunit-*
 
 # external libs
 tests/external/
+/composer.lock
+/vendor

@@ -2,16 +2,16 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use LogicException;
+use yidas\GoogleMaps\ServiceException;
 
 /**
  * Find by Place service
  *
  * @author  Petr Plsek <me@kalanys.com>
  * @since   2.2.0
- * @see https://developers.google.com/maps/documentation/places/web-service/search-find-place
+ * @see     https://developers.google.com/maps/documentation/places/web-service/search-find-place
  */
-class FindPlace extends AbstractService
+class FindPlace extends AbstractMapService
 {
     /**
      * @var string[]
@@ -43,7 +43,7 @@ class FindPlace extends AbstractService
      * @param string[] $fields which fields you want to get
      * @param array<string|int, float>|null $bias ['lat', 'lng', 'rad']
      * @param array<string, string|int|float> $params Query parameters
-     * @throws LogicException
+     * @throws ServiceException
      * @return array<string, string|int|float>
      */
     public function findPlace(
@@ -55,7 +55,7 @@ class FindPlace extends AbstractService
     ): array
     {
         if (empty($input) || empty($inputType)) {
-            throw new LogicException('You must set where to look!');
+            throw new ServiceException('You must set where to look!');
         }
 
         // Main wanted name
@@ -86,7 +86,7 @@ class FindPlace extends AbstractService
 
             } else {
 
-                throw new LogicException('Passed invalid values into coordinates! You must use either array with lat and lng and rad or 0, 1, 2 and 3 keys.');
+                throw new ServiceException('Passed invalid values into coordinates! You must use either array with lat and lng and rad or 0, 1, 2 and 3 keys.');
 
             }
         } elseif (!is_null($bias)) {
@@ -95,6 +95,6 @@ class FindPlace extends AbstractService
 
         }
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 }

@@ -2,16 +2,16 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use LogicException;
+use yidas\GoogleMaps\ServiceException;
 
 /**
  * Nearby service
  *
  * @author  Petr Plsek <me@kalanys.com>
  * @since   2.0.0
- * @see https://developers.google.com/maps/documentation/places/web-service/search-nearby
+ * @see     https://developers.google.com/maps/documentation/places/web-service/search-nearby
  */
-class Nearby extends AbstractService
+class Nearby extends AbstractMapService
 {
     public function getPath(): string
     {
@@ -26,13 +26,13 @@ class Nearby extends AbstractService
      * @param float|null $radius
      * @param string|null $type as wanted by Google
      * @param array<string, string|int|float> $params Query parameters
-     * @throws LogicException
+     * @throws ServiceException
      * @return array<string, string|int|float>
      */
     public function nearby(string $keyword, array $latlng = [], ?float $radius = null, ?string $type = null, array $params=[]): array
     {
         if (empty($keyword) && empty($latlng)) {
-            throw new LogicException('You must set where to look!');
+            throw new ServiceException('You must set where to look!');
         }
 
         // Main wanted name
@@ -53,7 +53,7 @@ class Nearby extends AbstractService
 
             } else {
 
-                throw new LogicException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
+                throw new ServiceException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
 
             }
         }
@@ -66,6 +66,6 @@ class Nearby extends AbstractService
             $params['type'] = $type;
         }
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 }

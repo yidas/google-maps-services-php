@@ -2,16 +2,16 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use LogicException;
+use yidas\GoogleMaps\ServiceException;
 
 /**
  * Timezone Service
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
  * @since   1.0.0
- * @see https://developers.google.com/maps/documentation/timezone/
+ * @see     https://developers.google.com/maps/documentation/timezone/
  */
-class Timezone extends AbstractService
+class Timezone extends AbstractMapService
 {
     public function getPath(): string
     {
@@ -24,7 +24,7 @@ class Timezone extends AbstractService
      * @param string|array<string> $location
      * @param int $timestamp
      * @param array<string, string|int|float> $params Query parameters
-     * @throws LogicException
+     * @throws ServiceException
      * @return array<string, string|int|float>
      */
     public function timezone($location, ?int $timestamp=null, array $params=[]): array
@@ -46,7 +46,7 @@ class Timezone extends AbstractService
 
             } else {
 
-                throw new LogicException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
+                throw new ServiceException('Passed invalid values into coordinates! You must use either array with lat and lng or 0 and 1 keys.');
 
             }
         }
@@ -54,6 +54,6 @@ class Timezone extends AbstractService
         // Timestamp
         $params['timestamp'] = ($timestamp) ?: time();
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 }

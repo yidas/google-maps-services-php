@@ -2,8 +2,6 @@
 
 namespace yidas\GoogleMaps;
 
-use Exception;
-
 /**
  * Google Maps PHP Client - API auth params
  *
@@ -47,7 +45,7 @@ class ApiAuth
      *  'key' => Google API Key
      *  'clientID' => Google clientID
      *  'clientSecret' => Google clientSecret
-     * @throws Exception
+     * @throws ServiceException
      */
     public function __construct($optParams)
     {
@@ -68,7 +66,7 @@ class ApiAuth
         if ($key) {
 
             if ($clientID || $clientSecret) {
-                throw new Exception("clientID/clientSecret should not set when using key", 400);
+                throw new ServiceException("clientID/clientSecret should not set when using key", 400);
             }
 
             $this->apiKey = (string) $key;
@@ -79,7 +77,7 @@ class ApiAuth
             $this->clientSecret = (string) $clientSecret;
         } else {
 
-            throw new Exception("Unable to set Client credential due to your wrong params", 400);
+            throw new ServiceException("Unable to set Client credential due to your wrong params", 400);
         }
     }
 

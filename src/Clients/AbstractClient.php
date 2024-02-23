@@ -11,32 +11,14 @@ namespace yidas\GoogleMaps\Clients;
 abstract class AbstractClient
 {
     /**
-     * Google Maps default language
-     *
-     * @var string|null ex. 'zh-TW'
-     */
-    protected $language;
-
-    /**
      * Request Google Map API
      *
      * @param string $apiPath
-     * @param array<string, string|int|float> $params
+     * @param array<string, string|int|float> $query
      * @param string $method HTTP request method
+     * @param string[] $headers
      * @param string $body
      * @return AbstractResponse
      */
-    abstract public function request(string $apiPath, array $params = [], string $method = 'GET', ?string $body = null): AbstractResponse;
-
-    /**
-     * Set default language for Google Maps API
-     *
-     * @param string|null $language ex. 'zh-TW'
-     * @return self
-     */
-    public function setLanguage(?string $language = null): self
-    {
-        $this->language = $language;
-        return $this;
-    }
+    abstract public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): AbstractResponse;
 }

@@ -8,8 +8,8 @@ use Exception;
  * Google Maps PHP Client - facade for processing
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
- * @version 1.0.0
- * 
+ * @version 1.1.0
+ *
  * @method array directions(string $origin, string $destination, array $params=[])
  * @method array distanceMatrix(string $origin, string $destination, array $params=[])
  * @method array elevation(string $locations, array $params=[])
@@ -21,6 +21,7 @@ use Exception;
  * @method array findPlace(string $input, string $inputType, string[] $fields=[], float[] $bias=null, array $params=[])
  * @method array findText(string $query, float $radius, float[] $location=[], int $maxPrice=null, int $minPrice=null, bool $openNow=false, string $region=null, string $type=null, array $params=[])
  * @method array placeDetails(string $placeId, string[] $fields=[], string $region=null, bool $translateReviews=true, string $sortReviews=null, array $params=[])
+ * @method array route(array $origin, array $destination, array $params=[])
  *
  * @codeCoverageIgnore because accessing external resources
  */
@@ -44,7 +45,7 @@ class Client
      */
     public function __construct($optParams)
     {
-        $this->services = new Services(new Clients\GuzzleClient(new ApiAuth($optParams)), new Services\ServiceFactory());
+        $this->services = new Services(new Clients\GuzzleClient(), new Services\ServiceFactory(new ApiAuth($optParams)));
         $defaultLang = isset($optParams['language']) ? $optParams['language'] : null;
         if ($defaultLang) {
             $this->setLanguage(strval($defaultLang));
@@ -65,7 +66,7 @@ class Client
 
     /**
      * Client methods refer to each service
-     * 
+     *
      * All service methods from Client calling would leave out the first argument (Client itself).
      *
      * @param string $method Client's method name

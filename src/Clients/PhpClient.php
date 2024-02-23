@@ -2,7 +2,6 @@
 
 namespace yidas\GoogleMaps\Clients;
 
-use Exception;
 use yidas\GoogleMaps\ApiAuth;
 use UnexpectedValueException;
 
@@ -22,70 +21,60 @@ class PhpClient extends AbstractClient
     protected $httpParams;
 
     /**
-     * Google Api Auth class providing auth params
-     *
-     * @var ApiAuth
-     */
-    protected $auth;
-
-    /**
      * Constructor
-     *
-     * @param ApiAuth $auth Google Api class to get auth params
-     * @throws Exception
      */
-    public function __construct(ApiAuth $auth)
+    public function __construct()
     {
         $this->httpParams = [
             'base_uri' => ApiAuth::API_HOST,
             'timeout' => 5.0,
         ];
-        $this->auth = $auth;
     }
 
     /**
      * Request Google Map API
      *
      * @param string $apiPath
-     * @param array<string, string|int|float> $params
+     * @param array<string, string|int|float> $query
      * @param string $method HTTP request method
+     * @param string[] $headers
      * @param string $body
      * @return AbstractResponse
      */
-    public function request(string $apiPath, array $params = [], string $method = 'GET', ?string $body = null): AbstractResponse
+    public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): AbstractResponse
     {
-        // Parameters for Auth
-        $defaultParams = $this->auth->getAuthParams();
-        // Parameters for Language setting
-        if ($this->language) {
-            $defaultParams['language'] = $this->language;
-        }
-
-        // Query
-        $query = array_merge($defaultParams, $params);
+        // Address
         $address =
             (false !== strpos($apiPath, '://') ? '' : $this->httpParams['base_uri'])
             . $apiPath . '?' . http_build_query($query);
 
-        return new PhpResponse($this->postToServer($address, $this->contextDataForPost($method, $body)));
+        return new PhpResponse($this->postToServer($address, $this->contextDataForPost($method, $headers, $body)));
     }
 
     /**
      * @param string $method
+     * @param string[] $headers
      * @param string|null $body
      * @return array<mixed>
      */
-    public function contextDataForPost(string $method, ?string $body): array
+    public function contextDataForPost(string $method, array $headers, ?string $body): array
     {
         $http = [];
 
         if (!empty($body)) {
             // geolocation and other services with request body
             $http['content'] = $body;
-            $http['header'] = implode("\r\n", [
-                'Content-type: application/json',
-                'Content-length: ' . strlen($body)
+            $headers = array_merge($headers, [
+                'Content-type' => 'application/json',
+                'Content-length' => strlen($body)
             ]);
+        }
+        if (!empty($headers)) {
+            $http['header'] = implode("\r\n", array_map(
+                [$this, 'stringifyHeader'],
+                array_map('strval', array_keys($headers)),
+                array_map('strval', array_values($headers))
+            ));
         }
 
         return [
@@ -99,6 +88,11 @@ class PhpClient extends AbstractClient
                 'timeout' => intval($this->httpParams['timeout'])
             ], $http)
         ];
+    }
+
+    public function stringifyHeader(string $key, string $value): string
+    {
+        return sprintf('%s: %s', $key, $value);
     }
 
     /**

@@ -7,11 +7,11 @@ namespace yidas\GoogleMaps\Services;
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
  * @since   1.0.0
- * @see https://developers.google.com/maps/documentation/distance-matrix/
+ * @see     https://developers.google.com/maps/documentation/distance-matrix/
+ * @see     https://developers.google.com/maps/documentation/distance-matrix/distance-matrix
  */
-class DistanceMatrix extends AbstractService
+class DistanceMatrix extends AbstractMapService
 {
-
     public function getPath(): string
     {
         return '/maps/api/distancematrix/json';
@@ -27,9 +27,10 @@ class DistanceMatrix extends AbstractService
      */
     public function distanceMatrix(string $origins, string $destinations, array $params=[]): array
     {
+        // Parameters for Language setting
         $params['origins'] = (string) $origins;
         $params['destinations'] = (string) $destinations;
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 }

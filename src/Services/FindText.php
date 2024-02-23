@@ -2,16 +2,16 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use LogicException;
+use yidas\GoogleMaps\ServiceException;
 
 /**
  * Find by text service
  *
  * @author  Petr Plsek <me@kalanys.com>
  * @since   2.2.0
- * @see https://developers.google.com/maps/documentation/places/web-service/search-text
+ * @see     https://developers.google.com/maps/documentation/places/web-service/search-text
  */
-class FindText extends AbstractService
+class FindText extends AbstractMapService
 {
     public function getPath(): string
     {
@@ -30,7 +30,7 @@ class FindText extends AbstractService
      * @param string|null $region
      * @param string|null $type
      * @param array<string, string|int|float> $params Query parameters
-     * @throws LogicException
+     * @throws ServiceException
      * @return array<string, string|int|float>
      */
     public function findText(
@@ -46,7 +46,7 @@ class FindText extends AbstractService
     ): array
     {
         if (empty($query) || empty($radius)) {
-            throw new LogicException('You must set where to look!');
+            throw new ServiceException('You must set where to look!');
         }
 
         // Main wanted name
@@ -66,7 +66,7 @@ class FindText extends AbstractService
 
             } else {
 
-                throw new LogicException('Passed invalid values into coordinates! You must use either array with lat and lng and rad or 0, 1, 2 and 3 keys.');
+                throw new ServiceException('Passed invalid values into coordinates! You must use either array with lat and lng and rad or 0, 1, 2 and 3 keys.');
 
             }
         }
@@ -91,6 +91,6 @@ class FindText extends AbstractService
             $params['type'] = $type;
         }
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 }

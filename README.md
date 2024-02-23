@@ -29,6 +29,7 @@ OUTLINE
         - [Language](#language)
     - [Directions API](#directions-api)
     - [Distance Matrix API](#distance-matrix-api)
+    - [Routes API](#routes-api)
     - [Elevation API](#elevation-api)
     - [Geocoding API](#geocoding-api)
     - [Geolocation API](#geolocation-api)
@@ -71,7 +72,7 @@ The PHP Client for Google Maps Services is a PHP Client library for the followin
 - Maps
     - [Elevation API]
 - Routes
-    - [Routes API](https://developers.google.com/maps/documentation/routes) (TBD)
+    - [Routes API]
     - [Roads API] (TBD)
     - [Directions API]
     - [Distance Matrix API]
@@ -106,6 +107,7 @@ To get an API key:
  2. Select one of your existing projects, or create a new project.
  3. Enable the Google Maps Services API(s) you plan to use, such as:
     * Directions API
+    * Distance Matrix API
     * Geocoding API
     * Places API
     * Roads API
@@ -128,7 +130,7 @@ INSTALLATION
 Run Composer in your project:
 
     composer require yidas/google-maps-services
-    
+
 Then you could call it after Composer is loaded depended on your PHP framework:
 
 ```php
@@ -158,7 +160,7 @@ If you use [Google Maps APIs Premium Plan license](https://developers.google.com
 
 ```php
 $gmaps = new \yidas\googleMaps\Client([
-    'clientID' => 'Your client ID', 
+    'clientID' => 'Your client ID',
     'clientSecret' => 'Your digital signature'
     ]);
 ```
@@ -201,6 +203,33 @@ $distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei
 $distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101', [
     'units' => 'imperial',
     ]);
+```
+
+### Routes API
+
+```php
+$route = $gmaps->route($originArray, $destinationArray, $fullBodyArray)
+
+// Get the route data between two places simply
+$route = $gmaps->route([
+        "location" => [
+           "latLng" => [
+              "latitude" => 37.419734,
+              "longitude" => -122.0827784
+           ]
+        ]
+    ],
+    [
+        "location" => [
+           "latLng" => [
+              "latitude" => 37.41767,
+              "longitude" => -122.079595
+           ]
+        ]
+    ]);
+
+// Get the route data between two places with full request data
+$route = $gmaps->route([...], [...], ["travelMode": "DRIVE", ...]);
 ```
 
 ### Elevation API
@@ -265,6 +294,7 @@ $nearbyResult = $gmaps->placeDetails('ChIJN1t_tDeuEmsRUsoyG83frY4', ['name', 'cu
 
 
 [Google Maps API Web Services]: https://developers.google.com/maps/documentation/webservices/
+[Routes API]: https://developers.google.com/maps/documentation/routes
 [Directions API]: https://developers.google.com/maps/documentation/directions/
 [directions-key]: https://developers.google.com/maps/documentation/directions/get-api-key#key
 [directions-client-id]: https://developers.google.com/maps/documentation/directions/get-api-key#client-id

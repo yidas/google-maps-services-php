@@ -2,7 +2,6 @@
 
 namespace yidas\GoogleMaps\Clients;
 
-use Exception;
 use kalanis\RemoteRequest;
 use yidas\GoogleMaps\ApiAuth;
 use UnexpectedValueException;
@@ -23,49 +22,30 @@ class KwClient extends AbstractClient
     protected $httpParams;
 
     /**
-     * Google Api Auth class providing auth params
-     *
-     * @var ApiAuth
-     */
-    protected $auth;
-
-    /**
      * Constructor
-     *
-     * @param ApiAuth $auth Google Api class to get auth params
-     * @throws Exception
      */
-    public function __construct(ApiAuth $auth)
+    public function __construct()
     {
         $this->httpParams = [
             'base_uri' => ApiAuth::API_HOST,
             'timeout' => 5.0,
         ];
-        $this->auth = $auth;
     }
 
     /**
      * Request Google Map API
      *
      * @param string $apiPath
-     * @param array<string, string|int|float> $params
+     * @param array<string, string|int|float> $query
      * @param string $method HTTP request method
+     * @param string[] $headers
      * @param string $body
      * @throws RemoteRequest\RequestException
      * @return AbstractResponse
      */
-    public function request(string $apiPath, array $params = [], string $method = 'GET', ?string $body = null): AbstractResponse
+    public function request(string $apiPath, array $query = [], string $method = 'GET', array $headers = [], ?string $body = null): AbstractResponse
     {
-        // Parameters for Auth
-        $defaultParams = $this->auth->getAuthParams();
-        // Parameters for Language setting
-        if ($this->language) {
-            $defaultParams['language'] = $this->language;
-        }
-
-        // Query
-        $query = array_merge($defaultParams, $params);
-
+        // Address
         $address =
             (false !== strpos($apiPath, '://') ? '' : $this->httpParams['base_uri'])
             . $apiPath;
@@ -110,6 +90,10 @@ class KwClient extends AbstractClient
         // Body
         if ($body) {
             $libQuery->body = $body;
+        }
+
+        if ($headers) {
+            $libQuery->addHeaders($headers);
         }
 
         $libHttpAnswer = new RemoteRequest\Protocols\Http\Answer();

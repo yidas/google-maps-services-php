@@ -2,8 +2,10 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use Exception;
 use ReflectionClass;
+use ReflectionException;
+use yidas\GoogleMaps\ApiAuth;
+use yidas\GoogleMaps\ServiceException;
 
 /**
  * Google Maps PHP Client - factory to get services
@@ -30,28 +32,40 @@ class ServiceFactory
         'findPlace' => FindPlace::class,
         'findText' => FindText::class,
         'placeDetails' => PlaceDetails::class,
+        'route' => Routes::class,
     ];
 
     /**
+     * @var ApiAuth
+     */
+    protected $apiAuth = null;
+
+    public function __construct(ApiAuth $apiAuth)
+    {
+        $this->apiAuth = $apiAuth;
+    }
+
+    /**
      * @param string $method
-     * @throws Exception
+     * @throws ReflectionException
+     * @throws ServiceException
      * @return AbstractService
      */
     public function getService(string $method): AbstractService
     {
         // Matching self::$serviceMethodMap is required
         if (!isset($this->serviceMethodMap[$method])) {
-            throw new Exception("Call to undefined service method *{$method}*", 400);
+            throw new ServiceException("Call to undefined service method *{$method}*", 400);
         }
 
         // Get the service mapped by method
         $service = $this->serviceMethodMap[$method];
 
         $reflection = new ReflectionClass($service);
-        $instance = $reflection->newInstance();
+        $instance = $reflection->newInstance($this->apiAuth);
 
         if (!$instance instanceof AbstractService) {
-            throw new Exception("Service *{$service}* is not an instance of \yidas\GoogleMaps\Services\AbstractService", 400);
+            throw new ServiceException("Service *{$service}* is not an instance of \yidas\GoogleMaps\Services\AbstractService", 400);
         }
 
         return $instance;

@@ -2,18 +2,18 @@
 
 namespace yidas\GoogleMaps\Services;
 
-use LogicException;
+use yidas\GoogleMaps\ServiceException;
 
 /**
  * Directions Service
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
  * @since   1.0.0
- * @see https://developers.google.com/maps/documentation/elevation/
+ * @see     https://developers.google.com/maps/documentation/elevation/
+ * @see     https://developers.google.com/maps/documentation/elevation/requests-elevation
  */
-class Elevation extends AbstractService
+class Elevation extends AbstractMapService
 {
-
     public function getPath(): string
     {
         return '/maps/api/elevation/json';
@@ -24,14 +24,14 @@ class Elevation extends AbstractService
      *
      * @param string|array<string|int, float> $locations
      * @param array<string, string|int|float> $params Query parameters
-     * @throws LogicException
+     * @throws ServiceException
      * @return array<string, string|int|float>
      */
     public function elevation($locations, array $params=[]): array
     {
         // `locations` seems to only allow `lat,lng` pattern
         if (is_string($locations)) {
-            
+
             $params['locations'] = $locations;
 
         } elseif (isset($locations['lat']) && isset($locations['lng'])) {
@@ -44,10 +44,10 @@ class Elevation extends AbstractService
 
         } else {
 
-            throw new LogicException('Passed invalid values into coordinates! You must use either preformatted string or array with lat and lng or 0 and 1 keys.');
+            throw new ServiceException('Passed invalid values into coordinates! You must use either preformatted string or array with lat and lng or 0 and 1 keys.');
 
         }
 
-        return $params;
+        return $this->extendQueryParams($params);
     }
 }

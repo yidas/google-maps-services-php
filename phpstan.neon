@@ -16,7 +16,7 @@ parameters:
 			message: '#of function call_user_func_array expects callable#'
 			path: 'src/Services.php'
 		-
-			message: '#Parameter \#2 \$params of method yidas\\GoogleMaps\\Clients\\AbstractClient\:\:request\(\) expects array#'
+			message: '#Parameter \#2 \$query of method yidas\\GoogleMaps\\Clients\\AbstractClient\:\:request\(\) expects array#'
 			path: 'src/Services.php'
 		# quality WTF - strval, intval
 		- '#Parameter \#1 \$va[rl]u?e? of function [si][tn][rt]val expects#'

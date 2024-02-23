@@ -2,7 +2,7 @@
 
 namespace yidas\GoogleMaps;
 
-use Exception;
+use ReflectionException;
 
 /**
  * Google Maps PHP Client - access services, process calls
@@ -40,16 +40,20 @@ class Services
     protected $factory;
 
     /**
+     * @var string|null
+     */
+    protected $language;
+
+    /**
      * Constructor
      *
      * @param Clients\AbstractClient $client
-     * @param Services\ServiceFactory|null $factory to get correct services
-     * @throws Exception
+     * @param Services\ServiceFactory $factory to get correct services
      */
-    public function __construct(Clients\AbstractClient $client, ?Services\ServiceFactory $factory = null)
+    public function __construct(Clients\AbstractClient $client, Services\ServiceFactory $factory)
     {
         $this->client = $client;
-        $this->factory = $factory ?: new Services\ServiceFactory();
+        $this->factory = $factory;
     }
 
     /**
@@ -58,9 +62,9 @@ class Services
      * @param string $language ex. 'zh-TW'
      * @return $this
      */
-    public function setLanguage(?string $language=null): self
+    public function setLanguage(?string $language = null): self
     {
-        $this->client->setLanguage($language);
+        $this->language = $language;
         return $this;
     }
 
@@ -71,7 +75,8 @@ class Services
      *
      * @param string $method Client's method name
      * @param array<int, string|int|float> $arguments Method arguments
-     * @throws Exception
+     * @throws ServiceException
+     * @throws ReflectionException
      * @return mixed Processed service method return
      */
     public function __call($method, $arguments)
@@ -85,10 +90,11 @@ class Services
 
         // Get service from Factory
         $service = $this->factory->getService($method);
+        $service->setLanguage($this->language);
 
         $params = (array) call_user_func_array([$service, $method], $arguments);
 
-        $response = $this->client->request($service->getPath(), $params, $service->getMethod(), $service->getBody());
+        $response = $this->client->request($service->getPath(), $params, $service->getMethod(), $service->getHeaders(), $service->getBody());
         $message = $response->getMessageBody();
         $result = json_decode($message, true);
 

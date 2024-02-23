@@ -15,6 +15,18 @@ use kalanis\RemoteRequest\Protocols;
  */
 class Query extends Protocols\Http\Query
 {
+    /**
+     * @param array<string, string> $headers
+     * @return Query
+     */
+    public function addHeaders(array $headers): self
+    {
+        foreach ($headers as $key => $value) {
+            $this->addHeader(strval($key), strval($value));
+        }
+        return $this;
+    }
+
     public function isInline(): bool
     {
         return false;
