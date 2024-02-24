@@ -14,7 +14,7 @@ use yidas\googleMaps\Client;
  */
 class Elevation extends Service
 {
-    const API_PATH = '/maps/api/elevation/json';
+    const API_URL = 'https://maps.googleapis.com/maps/api/elevation/json';
 
     /**
      * Elevation
@@ -37,6 +37,6 @@ class Elevation extends Service
             $params['locations'] = "{$lat},{$lng}";
         }
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return self::requestHandler($client, self::API_URL, $params);
     }
 }

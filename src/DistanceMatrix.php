@@ -14,7 +14,7 @@ use yidas\googleMaps\Client;
  */
 class DistanceMatrix extends Service
 {
-    const API_PATH = '/maps/api/distancematrix/json';
+    const API_URL = 'https://maps.googleapis.com/maps/api/distancematrix/json';
 
     /**
      * Distance matrix
@@ -30,6 +30,6 @@ class DistanceMatrix extends Service
         $params['origins'] = (string) $origins;
         $params['destinations'] = (string) $destinations;
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return self::requestHandler($client, self::API_URL, $params);
     }
 }

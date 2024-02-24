@@ -14,7 +14,7 @@ use yidas\googleMaps\Client;
  */
 class Timezone extends Service
 {
-    const API_PATH = '/maps/api/timezone/json';
+    const API_URL = 'https://maps.googleapis.com/maps/api/timezone/json';
 
     /**
      * Timezone
@@ -41,6 +41,6 @@ class Timezone extends Service
         // Timestamp
         $params['timestamp'] = ($timestamp) ?: time();
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return self::requestHandler($client, self::API_URL, $params);
     }
 }

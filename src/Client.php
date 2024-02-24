@@ -25,7 +25,7 @@ class Client
     /**
      * Google Maps Platform base API host
      */
-    const API_HOST = 'https://maps.googleapis.com';
+    // const API_HOST = 'https://maps.googleapis.com';
 
     /**
      * For service autoload
@@ -48,6 +48,7 @@ class Client
         'geolocate' => 'Geolocation',
         'timezone' => 'Timezone',
         'route' => 'Routes',
+        'snapToRoads' => 'Roads',
     ];
 
     /**
@@ -137,7 +138,7 @@ class Client
 
         // Load GuzzleHttp\Client
         $this->httpClient = new HttpClient([
-            'base_uri' => self::API_HOST,
+            // 'base_uri' => self::API_HOST,
             'timeout'  => 5.0,
         ]);
 
@@ -147,14 +148,14 @@ class Client
     /**
      * Request Google Map API
      *
-     * @param string $apiPath
+     * @param string $url
      * @param array $params
      * @param string $method HTTP request method
      * @param string $body
      * @param array $headers
      * @return GuzzleHttp\Psr7\Response
      */
-    public function request($apiPath, $params=[], $method='GET', $body=null, $headers=null)
+    public function request($url, $params=[], $method='GET', $body=null, $headers=null)
     {
         // Guzzle request options
         $options = [
@@ -165,10 +166,6 @@ class Client
         $defaultParams = ($this->apiKey)
             ? ['key' => $this->apiKey]
             : ['client' => $this->clientID, 'signature' => $this->clientSecret];
-        // Language setting for query string
-        if ($method == 'GET' && $this->language) {
-            $defaultParams['language'] = $this->language;
-        }
 
         // Query String
         $options['query'] = array_merge($defaultParams, $params);
@@ -183,7 +180,8 @@ class Client
             $options['headers'] = $headers;
         }
 
-        return $this->httpClient->request($method, $apiPath, $options);
+        // $options['debug'] = true;
+        return $this->httpClient->request($method, $url, $options);
     }
 
     /**
