@@ -14,7 +14,7 @@ use yidas\googleMaps\Client;
  */
 class Directions extends Service
 {
-    const API_PATH = '/maps/api/directions/json';
+    const API_URL = 'https://maps.googleapis.com/maps/api/directions/json';
 
     /**
      * Directions
@@ -30,6 +30,6 @@ class Directions extends Service
         $params['origin'] = (string) $origin;
         $params['destination'] = (string) $destination;
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return self::requestHandler($client, self::API_URL, $params);
     }
 }

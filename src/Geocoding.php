@@ -14,7 +14,7 @@ use yidas\googleMaps\Client;
  */
 class Geocoding extends Service
 {
-    const API_PATH = '/maps/api/geocode/json';
+    const API_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
     /**
      * Reverse Geocode
@@ -29,7 +29,7 @@ class Geocoding extends Service
         if (is_string($address)) 
             $params['address'] = $address;
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return self::requestHandler($client, self::API_URL, $params);
     }
 
     /**
@@ -54,6 +54,6 @@ class Geocoding extends Service
             $params['latlng'] = "{$lat},{$lng}";
         }
 
-        return self::requestHandler($client, self::API_PATH, $params);
+        return self::requestHandler($client, self::API_URL, $params);
     }
 }

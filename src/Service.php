@@ -15,21 +15,47 @@ abstract class Service
      *
      * @param string
      */
-    const API_PATH = '';
+    const API_URL = '';
+
+    /**
+     * Language setting method
+     * 
+     * 'query' for query string method, 'body' for request body
+     *
+     * @param string
+     */
+    const LANGUAGE_METHOD = 'query';
 
     /**
      * Request Handler
      *
      * @param Client $client
-     * @param string $apiPath
+     * @param string $apiUrl
      * @param array $params
      * @param string $method HTTP request method
      * @param array $body
      * @param array $headers
      * @return array|mixed Formated result
      */
-    protected static function requestHandler(Client $client, $apiPath, $params, $method='GET', $body=[], $headers=[])
+    protected static function requestHandler(Client $client, $apiUrl, $params, $method='GET', $body=[], $headers=[])
     {
+        // Language setting for query string
+        if (static::LANGUAGE_METHOD && $client->getLanguage()) {
+            
+            switch (static::LANGUAGE_METHOD) {
+                case 'body':
+                    if (!isset($body['languageCode'])) {     
+                        $body['languageCode'] = $client->getLanguage();
+                    }
+                    break;
+                
+                case 'query':
+                default:
+                    $params['language'] = $client->getLanguage();
+                    break;
+            }
+        }
+        
         // Body
         $bodyString = ($body) ? json_encode($body, JSON_UNESCAPED_SLASHES) : null;
 
@@ -39,7 +65,7 @@ abstract class Service
         ];
         $headers = array_merge($defaultHeaders, $headers);
 
-        $response = $client->request($apiPath, $params, $method, $bodyString, $headers);
+        $response = $client->request($apiUrl, $params, $method, $bodyString, $headers);
         $result = $response->getBody()->getContents();
         $result = json_decode($result, true);
 

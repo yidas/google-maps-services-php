@@ -17,7 +17,7 @@ class Geolocation extends Service
     /**
      * Replace all
      */
-    const API_PATH = 'https://www.googleapis.com/geolocation/v1/geolocate';
+    const API_URL = 'https://www.googleapis.com/geolocation/v1/geolocate';
 
     /**
      * Geolocate
@@ -28,9 +28,6 @@ class Geolocation extends Service
      */
     public static function geolocate(Client $client, $bodyParams=[])
     {
-        // Google API request body format
-        $body = json_encode($bodyParams);
-        
-        return self::requestHandler($client, self::API_PATH, [], 'POST', $body);
+        return self::requestHandler($client, self::API_URL, [], 'POST', $bodyParams);
     }
 }

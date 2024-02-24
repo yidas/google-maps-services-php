@@ -14,7 +14,9 @@ use yidas\googleMaps\Client;
  */
 class Routes extends Service
 {
-    const API_PATH = 'https://routes.googleapis.com/directions/v2:computeRoutes';
+    const API_URL = 'https://routes.googleapis.com/directions/v2:computeRoutes';
+
+    const LANGUAGE_METHOD = 'body';
 
     /**
      * Distance matrix
@@ -32,17 +34,12 @@ class Routes extends Service
         $requestBody['origin'] = $origin ?? $requestBody['origin'] ?? [];
         $requestBody['destination'] = $destination ?? $requestBody['destination'] ?? [];
 
-        // Language Code
-        if (!isset($requestBody['languageCode']) && $client->getLanguage()) {     
-            $requestBody['languageCode'] = $client->getLanguage();
-        }
-
         // Header
         $defaultHeaders = [
             'X-Goog-FieldMask' => 'routes.duration,routes.distanceMeters,routes.legs,geocodingResults',
         ];
         $headers = array_merge($defaultHeaders, $headers);
 
-        return self::requestHandler($client, self::API_PATH, [], 'POST', $requestBody, $headers);
+        return self::requestHandler($client, self::API_URL, [], 'POST', $requestBody, $headers);
     }
 }
