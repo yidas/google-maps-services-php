@@ -26,13 +26,7 @@ OUTLINE
     - [Client](#client)
         - [Google Maps APIs Premium Plan license](#google-maps-apis-premium-plan-license)
         - [Language](#language)
-    - [Directions API](#directions-api)
-    - [Distance Matrix API](#distance-matrix-api)
-    - [Routes API](#routes-api)
-    - [Elevation API](#elevation-api)
-    - [Geocoding API](#geocoding-api)
-    - [Geolocation API](#geolocation-api)
-    - [Time Zone API](#time-zone-api)
+    - [APIs](#apis)
 
 ---
 
@@ -65,18 +59,17 @@ DESCRIPTION
 The PHP Client for Google Maps Services is a PHP Client library for the following [Google Maps APIs](https://developers.google.com/maps):
 
 - Maps
-    - [Elevation API]
+    - [Elevation API](#elevation-api) ([Google Doc](https://developers.google.com/maps/documentation/elevation/))
 - Routes
-    - [Routes API](https://developers.google.com/maps/documentation/routes)
+    - [Routes API](#routes-api) ([Google Doc](https://developers.google.com/maps/documentation/routes))
     - [Roads API] (TBD)
-    - [Directions API]
-    - [Distance Matrix API]
+    - [Directions API](#directions-api) ([Google Doc](https://developers.google.com/maps/documentation/directions/))
+    - [Distance Matrix API](#distance-matrix-api) ([Google Doc](https://developers.google.com/maps/documentation/distancematrix/))
 - Places
     - [Places API] (TBD)
-    - [Geocoding API]
-    - [Geolocation API]
-    - [Time Zone API]
- 
+    - [Geocoding API](#geocoding-api) ([Google Doc](https://developers.google.com/maps/documentation/geocoding/))
+    - [Geolocation API](#geolocation-api) ([Google Doc](https://developers.google.com/maps/documentation/geolocation/))
+    - [Time Zone API](#time-zone-api) ([Google Doc](https://developers.google.com/maps/documentation/timezone/))
 
 ---
 
@@ -170,30 +163,21 @@ $gmaps->setLanguage('zh-TW');
 // ...
 ```
 
-### Directions API
+### APIs
+
+#### Elevation API
+
+[Elevation API overview | Google for Developers](https://developers.google.com/maps/documentation/elevation/overview)
 
 ```php
-// Request directions via public transit
-$directionsResult = $gmaps->directions('National Palace Museum', 'Taipei 101', [
-    'mode' => "transit",
-    'departure_time' => time(),
-    ]);
+// Get elevation by locations parameter
+$elevationResult = $gmaps->elevation([25.0339639, 121.5644722]);
+$elevationResult = $gmaps->elevation('25.0339639, 121.5644722');
 ```
 
+#### Routes API
 
-### Distance Matrix API
-
-```php
-// Get the distance matrix data between two places
-$distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101');
-
-// With Imperial units
-$distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101', [
-    'units' => 'imperial',
-    ]);
-```
-
-### Routes API
+[Get a route | Google for Developers](https://developers.google.com/maps/documentation/routes/compute_route_directions)
 
 ```php
 $route = $gmaps->route($originArray, $destinationArray, $fullBodyArray)
@@ -220,15 +204,36 @@ $route = $gmaps->route([
 $route = $gmaps->route([...], [...], ["travelMode": "DRIVE", ...]);
 ```
 
-### Elevation API
+#### Directions API
+
+[Getting directions | Google for Developers](https://developers.google.com/maps/documentation/directions/get-directions)
 
 ```php
-// Get elevation by locations parameter
-$elevationResult = $gmaps->elevation([25.0339639, 121.5644722]);
-$elevationResult = $gmaps->elevation('25.0339639, 121.5644722');
+// Request directions via public transit
+$directionsResult = $gmaps->directions('National Palace Museum', 'Taipei 101', [
+    'mode' => "transit",
+    'departure_time' => time(),
+    ]);
 ```
 
-### Geocoding API
+
+#### Distance Matrix API
+
+[Get started with the Distance Matrix API | Google for Developers](https://developers.google.com/maps/documentation/distance-matrix/start)
+
+```php
+// Get the distance matrix data between two places
+$distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101');
+
+// With Imperial units
+$distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101', [
+    'units' => 'imperial',
+    ]);
+```
+
+#### Geocoding API
+
+[Geocoding API overview | Google for Developers](https://developers.google.com/maps/documentation/geocoding/overview)
 
 ```php
 // Geocoding an address
@@ -238,30 +243,21 @@ $geocodeResult = $gmaps->geocode('Taipei 101, Taipei City, Taiwan 110');
 $reverseGeocodeResult = $gmaps->reverseGeocode([25.0339639, 121.5644722]);
 ```
 
-### Geolocation API
+#### Geolocation API
+
+[Geolocation API overview | Google for Developers](https://developers.google.com/maps/documentation/geolocation/overview)
 
 ```php
 // Simple geolocate
 $geolocateResult = $gmaps->geolocate([]);
 ```
 
-### Time Zone API
+#### Time Zone API
+
+[Time Zone API overview | Google for Developers](https://developers.google.com/maps/documentation/timezone/overview)
 
 ```php
 // requests the time zone data for giving location
 $timezoneResult = $gmaps->timezone([25.0339639, 121.5644722]);
 ```
 
-
-
-[Google Maps API Web Services]: https://developers.google.com/maps/documentation/webservices/
-[Directions API]: https://developers.google.com/maps/documentation/directions/
-[directions-key]: https://developers.google.com/maps/documentation/directions/get-api-key#key
-[directions-client-id]: https://developers.google.com/maps/documentation/directions/get-api-key#client-id
-[Distance Matrix API]: https://developers.google.com/maps/documentation/distancematrix/
-[Elevation API]: https://developers.google.com/maps/documentation/elevation/
-[Geocoding API]: https://developers.google.com/maps/documentation/geocoding/
-[Geolocation API]: https://developers.google.com/maps/documentation/geolocation/
-[Time Zone API]: https://developers.google.com/maps/documentation/timezone/
-[Roads API]: https://developers.google.com/maps/documentation/roads/
-[Places API]: https://developers.google.com/places/
