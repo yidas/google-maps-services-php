@@ -62,7 +62,7 @@ The PHP Client for Google Maps Services is a PHP Client library for the followin
     - [Elevation API](#elevation-api) ([Google Doc](https://developers.google.com/maps/documentation/elevation/))
 - Routes
     - [Routes API](#routes-api) ([Google Doc](https://developers.google.com/maps/documentation/routes))
-    - [Roads API] (TBD)
+    - [Roads API](#roads-api) ([Google Doc](https://developers.google.com/maps/documentation/roads))
     - [Directions API](#directions-api) ([Google Doc](https://developers.google.com/maps/documentation/directions/))
     - [Distance Matrix API](#distance-matrix-api) ([Google Doc](https://developers.google.com/maps/documentation/distancematrix/))
 - Places
@@ -180,10 +180,10 @@ $elevationResult = $gmaps->elevation('25.0339639, 121.5644722');
 [Get a route | Google for Developers](https://developers.google.com/maps/documentation/routes/compute_route_directions)
 
 ```php
-$route = $gmaps->computeRoutes($originArray, $destinationArray, $fullBodyArray, $fieldMask)
+$routes = $gmaps->computeRoutes($originArray, $destinationArray, $fullBodyArray, $fieldMask)
 
 // Get the route data between two places simply
-$route = $gmaps->computeRoutes([
+$routes = $gmaps->computeRoutes([
         "location" => [
            "latLng" => [
               "latitude" => 37.419734,
@@ -200,8 +200,16 @@ $route = $gmaps->computeRoutes([
         ]
     ]);
 
-// Get the route data between two places with full request data
-$route = $gmaps->route([...], [...], ["travelMode": "DRIVE", ...]);
+// Get the full route data between two places with full request data
+$routes = $gmaps->route([...], [...], ["travelMode": "DRIVE", ...], '*');
+```
+
+#### Roads API
+
+[Snap to Roads  | Google for Developers](https://developers.google.com/maps/documentation/roads/snap)
+
+```php
+$roads = $gmaps->snapToRoads([[-35.27801,149.12958], [-35.28032,149.12907], [-35.28099,149.12929]]);
 ```
 
 #### Directions API
