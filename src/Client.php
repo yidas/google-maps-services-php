@@ -47,7 +47,7 @@ class Client
         'reverseGeocode' => 'Geocoding',
         'geolocate' => 'Geolocation',
         'timezone' => 'Timezone',
-        'route' => 'Routes',
+        'computeRoutes' => 'Routes',
         'snapToRoads' => 'Roads',
     ];
 
@@ -205,6 +205,16 @@ class Client
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    /**
+     * Get current API key in client
+     *
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
     }
 
     /**

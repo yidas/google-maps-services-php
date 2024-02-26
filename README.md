@@ -180,10 +180,10 @@ $elevationResult = $gmaps->elevation('25.0339639, 121.5644722');
 [Get a route | Google for Developers](https://developers.google.com/maps/documentation/routes/compute_route_directions)
 
 ```php
-$route = $gmaps->route($originArray, $destinationArray, $fullBodyArray)
+$route = $gmaps->computeRoutes($originArray, $destinationArray, $fullBodyArray, $fieldMask)
 
 // Get the route data between two places simply
-$route = $gmaps->route([
+$route = $gmaps->computeRoutes([
         "location" => [
            "latLng" => [
               "latitude" => 37.419734,
