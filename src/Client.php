@@ -16,7 +16,7 @@ use GuzzleHttp\Client as HttpClient;
  * @method array elevation(string $locations, array $params=[])
  * @method array geocode(string $address, array $params=[])
  * @method array reverseGeocode(string $latlng, array $params=[])
- * @method array route(array $origin, array $destination, array $params=[])
+ * @method array computeRoutes(array $origin, array $destination, array body=[], array $fieldMask=[])
  * @method array geolocate(array $bodyParams=[])
  * @method array timezone(string $location, string $timestamp=null, array $params=[])
  */
