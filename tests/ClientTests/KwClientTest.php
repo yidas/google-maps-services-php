@@ -4,7 +4,7 @@ namespace ClientTests;
 
 
 use kalanis\RemoteRequest;
-use yidas\GoogleMaps\Clients\KwClient;
+use yidas\googleMaps\Clients\KwClient;
 
 
 class KwClientTest extends \CommonTestClass

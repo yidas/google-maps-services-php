@@ -1,6 +1,6 @@
 <?php
 
-namespace yidas\GoogleMaps;
+namespace yidas\googleMaps;
 
 use Exception;
 
@@ -8,7 +8,7 @@ use Exception;
  * Google Maps PHP Client - facade for processing
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
- * @version 1.1.0
+ * @version 1.2.0
  *
  * @method array directions(string $origin, string $destination, array $params=[])
  * @method array distanceMatrix(string $origin, string $destination, array $params=[])
@@ -22,6 +22,7 @@ use Exception;
  * @method array findText(string $query, float $radius, float[] $location=[], int $maxPrice=null, int $minPrice=null, bool $openNow=false, string $region=null, string $type=null, array $params=[])
  * @method array placeDetails(string $placeId, string[] $fields=[], string $region=null, bool $translateReviews=true, string $sortReviews=null, array $params=[])
  * @method array route(array $origin, array $destination, array $params=[])
+ * @method array snapToRoads($path, array $params=[])
  *
  * @codeCoverageIgnore because accessing external resources
  */
@@ -41,7 +42,7 @@ class Client
      *  'key' => Google API Key
      *  'clientID' => Google clientID
      *  'clientSecret' => Google clientSecret
-     * @throws Exception
+     * @throws ServiceException
      */
     public function __construct($optParams)
     {

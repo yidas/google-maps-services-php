@@ -1,10 +1,10 @@
 <?php
 
-namespace yidas\GoogleMaps\Clients;
+namespace yidas\googleMaps\Clients;
 
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
-use yidas\GoogleMaps\ServiceException;
+use yidas\googleMaps\ServiceException;
 
 /**
  * Google Maps PSR Client

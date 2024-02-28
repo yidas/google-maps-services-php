@@ -70,21 +70,20 @@ DESCRIPTION
 The PHP Client for Google Maps Services is a PHP Client library for the following [Google Maps APIs](https://developers.google.com/maps):
 
 - Maps
-    - [Elevation API]
+    - [Elevation API](#elevation-api) ([Google Doc](https://developers.google.com/maps/documentation/elevation/))
 - Routes
-    - [Routes API]
-    - [Roads API] (TBD)
-    - [Directions API]
-    - [Distance Matrix API]
+    - [Routes API](#routes-api) ([Google Doc](https://developers.google.com/maps/documentation/routes))
+    - [Roads API](#roads-api) ([Google Doc](https://developers.google.com/maps/documentation/roads))
+    - [Directions API](#directions-api) ([Google Doc](https://developers.google.com/maps/documentation/directions/))
+    - [Distance Matrix API](#distance-matrix-api) ([Google Doc](https://developers.google.com/maps/documentation/distancematrix/))
 - Places
-    - [Places API] (TBD)
-    - [Geocoding API]
-    - [Geolocation API]
-    - [Time Zone API]
-    - [Nearby API]
-    - [Find by Place API]
-    - [Find by Text API]
-    - [Place details API]
+    - [Geocoding API](#geocoding-api) ([Google Doc](https://developers.google.com/maps/documentation/geocoding/))
+    - [Geolocation API](#geolocation-api) ([Google Doc](https://developers.google.com/maps/documentation/geolocation/))
+    - [Time Zone API](#time-zone-api) ([Google Doc](https://developers.google.com/maps/documentation/timezone/))
+    - [Nearby API](#nearby-api) ([Google Doc](https://developers.google.com/maps/documentation/places/web-service/search-nearby/))
+    - [Find by Place API](#find-by-place-api) ([Google Doc](https://developers.google.com/maps/documentation/places/web-service/search-find-place))
+    - [Find by Text API](#find-by-text-api) ([Google Doc](https://developers.google.com/maps/documentation/places/web-service/search-text))
+    - [Place details API](#place-details-api) ([Google Doc](https://developers.google.com/maps/documentation/places/web-service/details))
 
 ---
 
@@ -182,36 +181,27 @@ $gmaps->setLanguage('zh-TW');
 // ...
 ```
 
-### Directions API
+### APIs
+
+#### Elevation API
+
+[Elevation API overview | Google for Developers](https://developers.google.com/maps/documentation/elevation/overview)
 
 ```php
-// Request directions via public transit
-$directionsResult = $gmaps->directions('National Palace Museum', 'Taipei 101', [
-    'mode' => "transit",
-    'departure_time' => time(),
-    ]);
+// Get elevation by locations parameter
+$elevationResult = $gmaps->elevation([25.0339639, 121.5644722]);
+$elevationResult = $gmaps->elevation('25.0339639, 121.5644722');
 ```
 
+#### Routes API
 
-### Distance Matrix API
-
-```php
-// Get the distance matrix data between two places
-$distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101');
-
-// With Imperial units
-$distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101', [
-    'units' => 'imperial',
-    ]);
-```
-
-### Routes API
+[Get a route | Google for Developers](https://developers.google.com/maps/documentation/routes/compute_route_directions)
 
 ```php
-$route = $gmaps->route($originArray, $destinationArray, $fullBodyArray)
+$routes = $gmaps->computeRoutes($originArray, $destinationArray, $fullBodyArray, $fieldMask)
 
 // Get the route data between two places simply
-$route = $gmaps->route([
+$routes = $gmaps->computeRoutes([
         "location" => [
            "latLng" => [
               "latitude" => 37.419734,
@@ -228,19 +218,48 @@ $route = $gmaps->route([
         ]
     ]);
 
-// Get the route data between two places with full request data
-$route = $gmaps->route([...], [...], ["travelMode": "DRIVE", ...]);
+// Get the full route data between two places with full request data
+$routes = $gmaps->route([...], [...], ["travelMode": "DRIVE", ...], '*');
 ```
 
-### Elevation API
+#### Roads API
+
+[Snap to Roads  | Google for Developers](https://developers.google.com/maps/documentation/roads/snap)
 
 ```php
-// Get elevation by locations parameter
-$elevationResult = $gmaps->elevation([25.0339639, 121.5644722]);
-$elevationResult = $gmaps->elevation('25.0339639, 121.5644722');
+$roads = $gmaps->snapToRoads([[-35.27801,149.12958], [-35.28032,149.12907], [-35.28099,149.12929]]);
 ```
 
-### Geocoding API
+#### Directions API
+
+[Getting directions | Google for Developers](https://developers.google.com/maps/documentation/directions/get-directions)
+
+```php
+// Request directions via public transit
+$directionsResult = $gmaps->directions('National Palace Museum', 'Taipei 101', [
+    'mode' => "transit",
+    'departure_time' => time(),
+    ]);
+```
+
+
+#### Distance Matrix API
+
+[Get started with the Distance Matrix API | Google for Developers](https://developers.google.com/maps/documentation/distance-matrix/start)
+
+```php
+// Get the distance matrix data between two places
+$distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101');
+
+// With Imperial units
+$distanceMatrixResult = $gmaps->distanceMatrix('National Palace Museum', 'Taipei 101', [
+    'units' => 'imperial',
+    ]);
+```
+
+#### Geocoding API
+
+[Geocoding API overview | Google for Developers](https://developers.google.com/maps/documentation/geocoding/overview)
 
 ```php
 // Geocoding an address
@@ -250,14 +269,18 @@ $geocodeResult = $gmaps->geocode('Taipei 101, Taipei City, Taiwan 110');
 $reverseGeocodeResult = $gmaps->reverseGeocode([25.0339639, 121.5644722]);
 ```
 
-### Geolocation API
+#### Geolocation API
+
+[Geolocation API overview | Google for Developers](https://developers.google.com/maps/documentation/geolocation/overview)
 
 ```php
 // Simple geolocate
 $geolocateResult = $gmaps->geolocate([]);
 ```
 
-### Time Zone API
+#### Time Zone API
+
+[Time Zone API overview | Google for Developers](https://developers.google.com/maps/documentation/timezone/overview)
 
 ```php
 // requests the time zone data for given location
@@ -266,12 +289,16 @@ $timezoneResult = $gmaps->timezone([25.0339639, 121.5644722]);
 
 ### Nearby API
 
+[Nearby API overview | Google for Developers](https://developers.google.com/maps/documentation/places/web-service/search)
+
 ```php
 // requests the nearby points for given location
 $nearbyResult = $gmaps->nearby('restaurant', [25.0339639, 121.5644722]);
 ```
 
 ### Find by Place API
+
+[Find by Place API overview | Google for Developers](https://developers.google.com/maps/documentation/places/web-service/search)
 
 ```php
 // requests the place points for given location by given place
@@ -280,12 +307,16 @@ $nearbyResult = $gmaps->findPlace('Champs Elysees', 'restaurant', ['name', 'curr
 
 ### Find by Text API
 
+[Find by Text API overview | Google for Developers](https://developers.google.com/maps/documentation/places/web-service/search)
+
 ```php
 // requests the place points for given location by given text
 $nearbyResult = $gmaps->findText('Sagrada Familia', 350, [], 3, 0, true);
 ```
 
 ### Place details API
+
+[Place details API overview | Google for Developers](https://developers.google.com/maps/documentation/places/web-service/search)
 
 ```php
 // requests the details about place point

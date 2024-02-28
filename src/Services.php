@@ -1,6 +1,6 @@
 <?php
 
-namespace yidas\GoogleMaps;
+namespace yidas\googleMaps;
 
 use ReflectionException;
 
@@ -21,6 +21,7 @@ use ReflectionException;
  * @method array findPlace(string $input, string $inputType, string[] $fields=[], float[] $bias=null, array $params=[])
  * @method array findText(string $query, float $radius, float[] $location=[], int $maxPrice=null, int $minPrice=null, bool $openNow=false, string $region=null, string $type=null, array $params=[])
  * @method array placeDetails(string $placeId, string[] $fields=[], string $region=null, bool $translateReviews=true, string $sortReviews=null, array $params=[])
+ * @method array snapToRoads($path, array $params=[])
  */
 class Services
 {

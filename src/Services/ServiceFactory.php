@@ -1,11 +1,11 @@
 <?php
 
-namespace yidas\GoogleMaps\Services;
+namespace yidas\googleMaps\Services;
 
 use ReflectionClass;
 use ReflectionException;
-use yidas\GoogleMaps\ApiAuth;
-use yidas\GoogleMaps\ServiceException;
+use yidas\googleMaps\ApiAuth;
+use yidas\googleMaps\ServiceException;
 
 /**
  * Google Maps PHP Client - factory to get services
@@ -33,6 +33,7 @@ class ServiceFactory
         'findText' => FindText::class,
         'placeDetails' => PlaceDetails::class,
         'route' => Routes::class,
+        'snapToRoads' => Roads::class,
     ];
 
     /**

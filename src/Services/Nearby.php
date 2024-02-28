@@ -1,8 +1,8 @@
 <?php
 
-namespace yidas\GoogleMaps\Services;
+namespace yidas\googleMaps\Services;
 
-use yidas\GoogleMaps\ServiceException;
+use yidas\googleMaps\ServiceException;
 
 /**
  * Nearby service

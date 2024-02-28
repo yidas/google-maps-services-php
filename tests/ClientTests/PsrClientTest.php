@@ -7,8 +7,8 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use yidas\GoogleMaps\Clients\PsrClient;
-use yidas\GoogleMaps\ServiceException;
+use yidas\googleMaps\Clients\PsrClient;
+use yidas\googleMaps\ServiceException;
 
 
 class PsrClientTest extends \CommonTestClass

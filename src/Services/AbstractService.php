@@ -1,8 +1,8 @@
 <?php
 
-namespace yidas\GoogleMaps\Services;
+namespace yidas\googleMaps\Services;
 
-use yidas\GoogleMaps\ApiAuth;
+use yidas\googleMaps\ApiAuth;
 
 /**
  * Google Maps Abstract Service

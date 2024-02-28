@@ -1,6 +1,6 @@
 <?php
 
-namespace yidas\GoogleMaps\Clients\Psr;
+namespace yidas\googleMaps\Clients\Psr;
 
 
 use Psr\Http\Message\RequestInterface;

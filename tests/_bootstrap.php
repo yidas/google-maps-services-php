@@ -1,7 +1,7 @@
 <?php
 
 define('AUTHOR_NAME', 'yidas');
-define('PROJECT_NAME', 'GoogleMaps');
+define('PROJECT_NAME', 'googleMaps');
 define('PROJECT_DIR', 'src');
 
 $composter = realpath(__DIR__ . '/../vendor/autoload.php');

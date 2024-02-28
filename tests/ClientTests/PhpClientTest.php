@@ -3,7 +3,7 @@
 namespace ClientTests;
 
 
-use yidas\GoogleMaps\Clients\PhpClient;
+use yidas\googleMaps\Clients\PhpClient;
 
 
 class PhpClientTest extends \CommonTestClass

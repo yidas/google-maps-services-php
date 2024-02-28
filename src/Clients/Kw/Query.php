@@ -1,6 +1,6 @@
 <?php
 
-namespace yidas\GoogleMaps\Clients\Kw;
+namespace yidas\googleMaps\Clients\Kw;
 
 
 use kalanis\RemoteRequest\Protocols;

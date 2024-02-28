@@ -4,8 +4,8 @@ namespace BasicTests;
 
 
 use CommonTestClass;
-use yidas\GoogleMaps\ApiAuth;
-use yidas\GoogleMaps\ServiceException;
+use yidas\googleMaps\ApiAuth;
+use yidas\googleMaps\ServiceException;
 
 
 class ApiAuthTest extends CommonTestClass

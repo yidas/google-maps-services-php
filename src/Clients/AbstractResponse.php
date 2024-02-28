@@ -1,6 +1,6 @@
 <?php
 
-namespace yidas\GoogleMaps\Clients;
+namespace yidas\googleMaps\Clients;
 
 /**
  * Google Maps PHP Client - abstract response class for usage of different HTTP implementations

@@ -3,7 +3,7 @@
 namespace ClientTests;
 
 
-use yidas\GoogleMaps\Clients\PsrResponse;
+use yidas\googleMaps\Clients\PsrResponse;
 
 
 class PsrResponseTest extends AResponse
