@@ -32,7 +32,7 @@ class ServiceFactory
         'findPlace' => FindPlace::class,
         'findText' => FindText::class,
         'placeDetails' => PlaceDetails::class,
-        'route' => Routes::class,
+        'computeRoutes' => Routes::class,
         'snapToRoads' => Roads::class,
     ];
 

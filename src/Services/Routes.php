@@ -50,13 +50,13 @@ class Routes extends AbstractService
      *
      * @param array<mixed>|null $origin
      * @param array<mixed>|null $destination
-     * @param array<mixed>|null $body Full body
+     * @param array<mixed> $body Full body
      * @param array<string, string> $headers
      * @param array<string, string|int|float> $params Query parameters
      * @throws ServiceException
      * @return array<string, string|int|float>
      */
-    public function route($origin, $destination, $body=[], array $headers=[], array $params=[]): array
+    public function computeRoutes($origin, $destination, $body=[], array $headers=[], array $params=[]): array
     {
         $requestBody = $body;
         $requestBody['origin'] = $origin ?? $requestBody['origin'] ?? [];

@@ -43,11 +43,11 @@ class RoutesTest extends CommonTestClass
     public function testServiceRoute(): void
     {
         $lib = new Services\Routes(new ApiAuth('test'));
-        $this->assertEquals([], $lib->route([10.7, 11.4, 'foo' => 'bar',], []));
+        $this->assertEquals([], $lib->computeRoutes([10.7, 11.4, 'foo' => 'bar',], []));
         $this->assertEquals('{"origin":{"0":10.7,"1":11.4,"foo":"bar"},"destination":[]}', $lib->getBody());
 
         $lib->setLanguage('hk');
-        $this->assertEquals([], $lib->route(['foo' => 'bar',], [10.7, 11.4,]));
+        $this->assertEquals([], $lib->computeRoutes(['foo' => 'bar',], [10.7, 11.4,]));
         $this->assertEquals('{"origin":{"foo":"bar"},"destination":[10.7,11.4],"languageCode":"hk"}', $lib->getBody());
     }
 }

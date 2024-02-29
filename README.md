@@ -219,7 +219,7 @@ $routes = $gmaps->computeRoutes([
     ]);
 
 // Get the full route data between two places with full request data
-$routes = $gmaps->route([...], [...], ["travelMode": "DRIVE", ...], '*');
+$routes = $gmaps->computeRoutes([...], [...], ["travelMode": "DRIVE", ...], '*');
 ```
 
 #### Roads API
