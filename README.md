@@ -9,6 +9,7 @@
 PHP client library(SDK) for Google Maps API Web Services
 
 [![Latest Stable Version](https://poser.pugx.org/yidas/google-maps-services/v/stable?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/yidas/google-maps-services/license?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
 [![Total Downloads](https://poser.pugx.org/yidas/google-maps-services/downloads?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
 [![Monthly Downloads](https://poser.pugx.org/yidas/google-maps-services/d/monthly?format=flat-square)](https://packagist.org/packages/yidas/google-maps-services)
@@ -26,7 +27,17 @@ OUTLINE
     - [Client](#client)
         - [Google Maps APIs Premium Plan license](#google-maps-apis-premium-plan-license)
         - [Language](#language)
-    - [APIs](#apis)
+    - [Directions API](#directions-api)
+    - [Distance Matrix API](#distance-matrix-api)
+    - [Routes API](#routes-api)
+    - [Elevation API](#elevation-api)
+    - [Geocoding API](#geocoding-api)
+    - [Geolocation API](#geolocation-api)
+    - [Time Zone API](#time-zone-api)
+    - [Nearby API](#nearby-api)
+    - [Find by Place API](#find-by-place-api)
+    - [Find by Text API](#find-by-text-api)
+    - [Place details API](#place-details-api)
 
 ---
 
@@ -66,17 +77,20 @@ The PHP Client for Google Maps Services is a PHP Client library for the followin
     - [Directions API](#directions-api) ([Google Doc](https://developers.google.com/maps/documentation/directions/))
     - [Distance Matrix API](#distance-matrix-api) ([Google Doc](https://developers.google.com/maps/documentation/distancematrix/))
 - Places
-    - [Places API] (TBD)
     - [Geocoding API](#geocoding-api) ([Google Doc](https://developers.google.com/maps/documentation/geocoding/))
     - [Geolocation API](#geolocation-api) ([Google Doc](https://developers.google.com/maps/documentation/geolocation/))
     - [Time Zone API](#time-zone-api) ([Google Doc](https://developers.google.com/maps/documentation/timezone/))
+    - [Nearby API](#nearby-api) ([Google Doc](https://developers.google.com/maps/documentation/places/web-service/search-nearby/))
+    - [Find by Place API](#find-by-place-api) ([Google Doc](https://developers.google.com/maps/documentation/places/web-service/search-find-place))
+    - [Find by Text API](#find-by-text-api) ([Google Doc](https://developers.google.com/maps/documentation/places/web-service/search-text))
+    - [Place details API](#place-details-api) ([Google Doc](https://developers.google.com/maps/documentation/places/web-service/details))
 
 ---
 
 REQUIREMENTS
 ------------
 
-- PHP 7.0+ or higher
+- PHP 7.1+ or higher
 
 ### API keys
 
@@ -94,7 +108,11 @@ To get an API key:
     * Directions API
     * Distance Matrix API
     * Geocoding API
-    * ...
+    * Places API
+    * Roads API
+    * Time Zone API
+    * Nearby API
+
  4. Create a new **Server key**.
  5. If you'd like to restrict requests to a specific IP address, do so now.
 
@@ -265,7 +283,60 @@ $geolocateResult = $gmaps->geolocate([]);
 [Time Zone API overview | Google for Developers](https://developers.google.com/maps/documentation/timezone/overview)
 
 ```php
-// requests the time zone data for giving location
+// requests the time zone data for given location
 $timezoneResult = $gmaps->timezone([25.0339639, 121.5644722]);
 ```
 
+### Nearby API
+
+[Nearby API overview | Google for Developers](https://developers.google.com/maps/documentation/places/web-service/search)
+
+```php
+// requests the nearby points for given location
+$nearbyResult = $gmaps->nearby('restaurant', [25.0339639, 121.5644722]);
+```
+
+### Find by Place API
+
+[Find by Place API overview | Google for Developers](https://developers.google.com/maps/documentation/places/web-service/search)
+
+```php
+// requests the place points for given location by given place
+$nearbyResult = $gmaps->findPlace('Champs Elysees', 'restaurant', ['name', 'current_opening_hours']);
+```
+
+### Find by Text API
+
+[Find by Text API overview | Google for Developers](https://developers.google.com/maps/documentation/places/web-service/search)
+
+```php
+// requests the place points for given location by given text
+$nearbyResult = $gmaps->findText('Sagrada Familia', 350, [], 3, 0, true);
+```
+
+### Place details API
+
+[Place details API overview | Google for Developers](https://developers.google.com/maps/documentation/places/web-service/search)
+
+```php
+// requests the details about place point
+$nearbyResult = $gmaps->placeDetails('ChIJN1t_tDeuEmsRUsoyG83frY4', ['name', 'current_opening_hours']);
+```
+
+
+[Google Maps API Web Services]: https://developers.google.com/maps/documentation/webservices/
+[Routes API]: https://developers.google.com/maps/documentation/routes
+[Directions API]: https://developers.google.com/maps/documentation/directions/
+[directions-key]: https://developers.google.com/maps/documentation/directions/get-api-key#key
+[directions-client-id]: https://developers.google.com/maps/documentation/directions/get-api-key#client-id
+[Distance Matrix API]: https://developers.google.com/maps/documentation/distancematrix/
+[Elevation API]: https://developers.google.com/maps/documentation/elevation/
+[Geocoding API]: https://developers.google.com/maps/documentation/geocoding/
+[Geolocation API]: https://developers.google.com/maps/documentation/geolocation/
+[Nearby API]: https://developers.google.com/maps/documentation/places/web-service/search-nearby/
+[Time Zone API]: https://developers.google.com/maps/documentation/timezone/
+[Find by Place API]: https://developers.google.com/maps/documentation/places/web-service/search-find-place
+[Find by Text API]: https://developers.google.com/maps/documentation/places/web-service/search-text
+[Place details API]: https://developers.google.com/maps/documentation/places/web-service/details
+[Roads API]: https://developers.google.com/maps/documentation/roads/
+[Places API]: https://developers.google.com/places/

@@ -1,2 +1,15 @@
+# Editor configuration
+.idea/
+
+# Setuptools, their dist folder
+/build/
+/dist/
+
+# checks
+phpunit
+phpunit-*
+
+# external libs
+tests/external/
 /composer.lock
 /vendor

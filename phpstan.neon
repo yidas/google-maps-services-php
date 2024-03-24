@@ -1,0 +1,22 @@
+parameters:
+	level: 9
+	paths:
+		- 'src'
+	scanFiles:
+		- 'tests/CommonTestClass.php'
+	excludePaths:
+		- 'tests/_autoload.php'
+		- 'tests/_bootstrap.php'
+#		- 'tests/CommonTestClass.php'
+	bootstrapFiles:
+		- 'tests/_autoload.php'
+	ignoreErrors:
+		# quality WTF - usual problems with phpstan
+		-
+			message: '#of function call_user_func_array expects callable#'
+			path: 'src/Services.php'
+		-
+			message: '#Parameter \#2 \$query of method yidas\\googleMaps\\Clients\\AbstractClient\:\:request\(\) expects array#'
+			path: 'src/Services.php'
+#		# quality WTF - strval, intval
+#		- '#Parameter \#1 \$va[rl]u?e? of function [si][tn][rt]val expects#'
