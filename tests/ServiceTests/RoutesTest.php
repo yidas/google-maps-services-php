@@ -19,7 +19,7 @@ class RoutesTest extends CommonTestClass
         $lib = new Services\Routes(new ApiAuth('test'));
         $this->assertEquals('https://routes.googleapis.com/directions/v2:computeRoutes', $lib->getPath());
         $this->assertEquals('POST', $lib->getMethod());
-        $this->assertEquals(null, $lib->getBody());
+        $this->assertNull($lib->getBody());
         $this->assertEquals([
             'X-Goog-FieldMask' => 'routes.duration,routes.distanceMeters,routes.legs,geocodingResults',
             'X-Goog-Api-Key' => 'test',

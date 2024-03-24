@@ -19,7 +19,7 @@ class GeolocationTest extends CommonTestClass
         $lib = new Services\Geolocation(new ApiAuth('test'));
         $this->assertEquals('https://www.googleapis.com/geolocation/v1/geolocate', $lib->getPath());
         $this->assertEquals('POST', $lib->getMethod());
-        $this->assertEquals(null, $lib->getBody());
+        $this->assertNull($lib->getBody());
     }
 
     /**

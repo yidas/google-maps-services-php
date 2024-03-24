@@ -20,7 +20,7 @@ class BasicsTest extends CommonTestClass
         $this->assertEquals('dummy path', $lib->getPath());
         $this->assertEquals('GET', $lib->getMethod());
         $this->assertEquals([], $lib->getHeaders());
-        $this->assertEquals(null, $lib->getBody());
+        $this->assertNull($lib->getBody());
         $this->assertEquals(true, $lib->wantInnerResult());
     }
 }

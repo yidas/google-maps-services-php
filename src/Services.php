@@ -90,10 +90,12 @@ class Services
         // 4 - client response with something
         // 5 - parse response and returns it to the user
 
-        // Get service from Factory
+        // Get the service from Factory
         $service = $this->factory->getService($method);
         $service->setLanguage($this->language);
 
+        // This order must stay the same!!! - You set things in that call that will be necessary in next step.
+        // You must understand that the original call returns just get/post line like in the browser, not the whole request.
         $params = (array) call_user_func_array([$service, $method], $arguments);
 
         $response = $this->client->request($service->getPath(), $params, $service->getMethod(), $service->getHeaders(), $service->getBody());
